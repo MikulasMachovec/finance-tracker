@@ -1,7 +1,31 @@
 import { FaLock, FaShieldAlt } from "react-icons/fa";
 import BackgroundCard from "../ui/BackgroundCard";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import PasswordChangeForm from "../forms/PasswordChangeForm";
+import Modal from "../ui/modal/Modal";
+import Button from "../ui/Button";
+import useUserSetting from "../../hooks/useUserSetting";
 
 const SecurityCard = () => {
+
+    const [ showChangePasswordModal , setShowChangePasswordModal] = useState(false)
+
+    const { 
+        updateUserPassword
+    } = useUserSetting();
+
+    const handlePasswordUpdate = async (formData) => {
+        
+        try {
+            await updateUserPassword(formData)
+            toast.success("Password updated successfully")
+            setShowChangePasswordModal(false)
+        } catch (error) {
+            console.log("Error updating password: ", error);
+            toast.error("Failed to update password")
+        } 
+    }
 
     return (
         <BackgroundCard
@@ -63,6 +87,7 @@ const SecurityCard = () => {
                             transition-colors
                             hover:bg-slate-100
                         "
+                        onClick={() => setShowChangePasswordModal(prev => !prev)}
                     >
                         Change Password
                     </button>
@@ -129,6 +154,33 @@ const SecurityCard = () => {
                 </div>
 
             </div>
+
+            <Modal
+            isOpen={showChangePasswordModal}
+            onClose={() => setShowChangePasswordModal(prev => !prev)}
+            title="Change password"
+            footer={
+                <>
+                    <Button
+                        onClick={()=>setShowChangePasswordModal(prev => !prev)}
+                        variant="secondary"
+                    >
+                        Cancel
+                    </Button>
+
+                    <Button
+                        type="submit"
+                        form="change-password-form"
+                    >
+                        Save
+                    </Button>
+                </>
+            }
+        >
+            <PasswordChangeForm
+                onSubmit={handlePasswordUpdate}
+            />
+        </Modal>
 
         </BackgroundCard>
     );

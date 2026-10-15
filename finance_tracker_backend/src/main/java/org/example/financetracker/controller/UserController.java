@@ -2,10 +2,12 @@ package org.example.financetracker.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.example.financetracker.dto.user.UpdatePasswordRequest;
 import org.example.financetracker.dto.user.UserResponseDTO;
 import org.example.financetracker.dto.user.UserUpdateResponse;
 import org.example.financetracker.security.CustomUserPrincipal;
 import org.example.financetracker.service.interfaces.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,5 +36,16 @@ public class UserController {
                 principal.getUserId(),
                 request
         );
+    }
+
+    @PutMapping("/updatePassword")
+    public ResponseEntity<Void> updatePassword(
+            @Valid @RequestBody UpdatePasswordRequest request
+            ){
+        userService.updatePassword(
+                request
+        );
+
+        return ResponseEntity.noContent().build();
     }
 }

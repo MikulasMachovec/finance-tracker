@@ -7,3 +7,7 @@ export const getCurrentUser = () => {
 export const updateUserProfile = (data) => {
     return apiPut("/users/updateProfile", data);
 }
+
+export const updatePassword = (data) => {
+    return apiPut("/users/updatePassword", data)
+}
