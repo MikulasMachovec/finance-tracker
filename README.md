@@ -243,6 +243,7 @@ The core application functionality is implemented, including:
 * [x] Financial insights
 * [x] Charts and visualizations
 * [x] Settings interface
+* [x] Password change
 
 Additional backend settings functionality and further improvements are planned.
 
@@ -253,7 +254,6 @@ Additional backend settings functionality and further improvements are planned.
 Potential future development includes:
 
 * [ ] Complete notification preferences
-* [ ] Password change
 * [ ] Account deletion
 * [ ] Advanced financial reports
 * [ ] Implement user preferences (date format, currency, etc.)
