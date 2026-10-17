@@ -1,7 +1,33 @@
+import { useState } from "react";
 import BackgroundCard from "../ui/BackgroundCard";
 import { FaDownload, FaTrash } from "react-icons/fa";
+import Modal from "../ui/modal/Modal";
+import Button from "../ui/Button";
+import useUserSetting from "../../hooks/useUserSetting";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { useSession } from "../../context/sessionProvider";
 
 const DangerZoneCard = () => {
+
+    const [ isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+    const navigate = useNavigate();
+    const { 
+        deleteUserAccount
+    } = useUserSetting();
+    const { logout } = useSession();
+    
+    const handleDeleteAccount = async () => {
+        try {
+            await deleteUserAccount();
+            logout();
+            toast.success("Your account was deleted.")
+        } catch (error) {
+            console.log("Error deleting acc: ", error);
+            toast.error("Error has occured")
+        } 
+        
+    }
 
     return (
         <BackgroundCard
@@ -150,6 +176,7 @@ const DangerZoneCard = () => {
                             transition
                             hover:bg-red-700
                         "
+                        onClick={() => setIsDeleteModalOpen(prev => !prev)}
                     >
                         Delete Account
                     </button>
@@ -157,6 +184,36 @@ const DangerZoneCard = () => {
                 </div>
 
             </div>
+
+            <Modal
+            isOpen={isDeleteModalOpen}
+            onClose={() => setIsDeleteModalOpen(prev => !prev)}
+            title="Delete Account"
+            footer={
+                <>
+                    <Button
+                        onClick={()=>setIsDeleteModalOpen(prev => !prev)}
+                        variant="secondary"
+                    >
+                        Cancel
+                    </Button>
+
+                    <Button
+                        variant="danger"
+                        onClick={handleDeleteAccount}
+                    >
+                        Delete
+                    </Button>
+                </>
+            }
+        >
+            <h1
+                className="text-center"
+            >
+                Are you sure you want to delete your account?
+            </h1>
+            
+        </Modal>
 
         </BackgroundCard>
     );

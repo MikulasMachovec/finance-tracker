@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import { getTransactions } from "../api/transactionApi";
 import { getCategoryBreakDown, getDashboard, getMonthlyFinance } from "../api/apiDashboard";
 
 export default function useDashboard( refreshKey ){

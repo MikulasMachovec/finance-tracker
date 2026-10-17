@@ -4,6 +4,7 @@ import sidebarItems from '../../data/sidebarItems';
 import { useSession } from '../../context/sessionProvider';
 import { useNavigate } from 'react-router-dom';
 import useUserSetting from '../../hooks/useUserSetting';
+import toast from 'react-hot-toast';
 
 
 const Sidebar = ({collapsed, setCollapsed}) => {

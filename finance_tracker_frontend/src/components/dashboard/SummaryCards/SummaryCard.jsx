@@ -37,18 +37,6 @@ const SummaryCard = ({
                 {value}
             </h2>
 
-            {/* Change */}
-
-            <p
-                className={`mt-2 text-sm font-medium ${
-                trend === "up"
-                    ? "text-green-600"
-                    : "text-red-600"
-                }`}
-            >
-                {trend === "up" ? "▲" : "▼"} {change} from last month
-            </p>
-
         </div>
     );
 };

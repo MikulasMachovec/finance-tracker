@@ -1,4 +1,4 @@
-import { apiGet, apiPost, apiPut } from "./apiClient"
+import { apiDelete, apiGet, apiPost, apiPut } from "./apiClient"
 
 export const getCurrentUser = () => {
     return apiGet("/users/me");
@@ -10,4 +10,8 @@ export const updateUserProfile = (data) => {
 
 export const updatePassword = (data) => {
     return apiPut("/users/updatePassword", data)
+}
+
+export const deleteAccount = () => {
+    return apiDelete("/users/deleteAccount")
 }

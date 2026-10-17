@@ -42,7 +42,8 @@ export default function useUserSetting(){
         loading,
         loadUser,
         editUserProfile,
-        updateUserPassword
+        updateUserPassword,
+        deleteUserAccount
     }
 
 }
