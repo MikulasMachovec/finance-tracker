@@ -12,6 +12,7 @@ public interface CategoryRepository
         extends JpaRepository<CategoryEntity,Long> {
 
     List<CategoryEntity> findByOwner(UserEntity owner);
+    List<CategoryEntity> findAllByOwner_UserId(Long userId);
 
     Optional<CategoryEntity> findByOwnerAndName(
             UserEntity owner,String name

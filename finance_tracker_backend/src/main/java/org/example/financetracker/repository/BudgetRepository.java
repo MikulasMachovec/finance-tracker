@@ -11,6 +11,7 @@ public interface BudgetRepository
         extends JpaRepository<BudgetEntity,Long> {
 
     List<BudgetEntity> findByOwner(UserEntity owner);
+    List<BudgetEntity> findAllByOwner_UserId(Long userId);
 
     List<BudgetEntity> findByOwnerAndYearAndMonth(
             UserEntity owner,

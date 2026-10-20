@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.financetracker.dto.transaction.TransactionRequest;
 import org.example.financetracker.dto.transaction.TransactionResponse;
 import org.example.financetracker.enums.TransactionType;
+import org.example.financetracker.service.interfaces.ExportDataService;
 import org.example.financetracker.service.interfaces.TransactionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import java.util.List;
 public class TransactionController {
 
     private final TransactionService transactionService;
+    private final ExportDataService transactionExportService;
 
     @GetMapping
     public List<TransactionResponse> getAllTransactions(

@@ -43,6 +43,30 @@ const fetchData = (url, requestOptions) => {
 
 };
 
+// Method to return raw response
+const fetchDataReturnRaw = (url, requestOptions) => {
+    const apiUrl = `${API_URL}${url}`;
+    const token = localStorage.getItem("accessToken");
+
+    const allRequestOptions = {
+        credentials: "include",
+        ...requestOptions,
+        headers: {
+            ...requestOptions.headers,
+            ...(token && { Authorization: `Bearer ${token}` }),
+        },
+    };
+
+    return fetch(apiUrl, allRequestOptions)
+        .then((response) => {
+            if (!response.ok) {
+                throw new HttpRequestError(response);
+            }
+
+            return response;
+        });
+};
+
 export const apiGet = (url, params = {}) => {
     const filteredParams = Object.fromEntries(
         Object.entries(params)
@@ -60,7 +84,25 @@ export const apiGet = (url, params = {}) => {
     };
 
     return fetchData(apiUrl, requestOptions);
-}
+};
+
+export const apiGetBlob = async (url, params = {}) => {
+    const filteredParams = Object.fromEntries(
+        Object.entries(params).filter(
+            ([, value]) => value != null && value !== ""
+        )
+    );
+
+    const query = new URLSearchParams(filteredParams);
+    const apiUrl = query.toString() ? `${url}?${query}` : url;
+
+    const requestOptions = {
+        method: "GET",
+    }
+    const response = await fetchDataReturnRaw(apiUrl, requestOptions);
+
+    return response.blob();
+};
 
 export const apiPost = (url, data) => {
     const requestOptions = {
@@ -69,7 +111,7 @@ export const apiPost = (url, data) => {
         body: JSON.stringify(data),
     }
     return fetchData(url, requestOptions);
-}
+};
 
 export const apiPut = (url, data) => {
     const requestOptions = {
@@ -78,7 +120,7 @@ export const apiPut = (url, data) => {
         body: JSON.stringify(data),
     }
     return fetchData(url, requestOptions);
-}
+};
 // body part is optional thats why there is spread operator
 export const apiPatch = ( url, data) => {
     const requestOptions = {
@@ -87,7 +129,7 @@ export const apiPatch = ( url, data) => {
         ...(data && { body: JSON.stringify(data) }),
     }
     return fetchData(url, requestOptions);
-}
+};
 
 export const apiDelete = (url) => {
     const requestOptions = {
@@ -95,4 +137,4 @@ export const apiDelete = (url) => {
         headers: { "Content-Type" : "application/json" },
     }
     return fetchData(url, requestOptions);
-}
+};

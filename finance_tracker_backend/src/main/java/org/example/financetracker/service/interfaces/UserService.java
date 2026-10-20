@@ -12,4 +12,6 @@ public interface UserService {
     UserResponseDTO updateProfile(Long userId, UserUpdateResponse request);
 
     void updatePassword(UpdatePasswordRequest request);
+
+    void deleteUserAccount();
 }

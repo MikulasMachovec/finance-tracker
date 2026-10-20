@@ -48,4 +48,11 @@ public class UserController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/deleteAccount")
+    public ResponseEntity<Void> deleteAccount(
+    ){
+        userService.deleteUserAccount();
+        return ResponseEntity.noContent().build();
+    }
 }

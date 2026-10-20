@@ -18,6 +18,14 @@ public interface TransactionRepository
         extends JpaRepository<TransactionEntity, Long> {
     List<TransactionEntity> findByOwner(UserEntity owner);
 
+    List<TransactionEntity> findAllByOwner_UserId(Long userId);
+
+    List<TransactionEntity> findAllByOwner_UserIdAndTransactionDateBetween(
+            Long userId,
+            LocalDate fromDate,
+            LocalDate toDate
+    );
+
     List<TransactionEntity> findByOwnerAndTransactionDateBetween(
             UserEntity owner,
             LocalDate start,

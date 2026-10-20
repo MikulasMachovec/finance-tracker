@@ -14,6 +14,7 @@ import org.example.financetracker.service.interfaces.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
@@ -70,5 +71,12 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);
 
+    }
+
+    @Override
+    @Transactional
+    public void deleteUserAccount() {
+        UserEntity user = authenticationService.getCurrentUser();
+        userRepository.delete(user);
     }
 }

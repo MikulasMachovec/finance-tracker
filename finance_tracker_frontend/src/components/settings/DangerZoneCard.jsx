@@ -5,16 +5,28 @@ import Modal from "../ui/modal/Modal";
 import Button from "../ui/Button";
 import useUserSetting from "../../hooks/useUserSetting";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import { useSession } from "../../context/sessionProvider";
+import ExportOptions from "../forms/exportOptions";
+import useExportData from "../../hooks/useExportData";
 
 const DangerZoneCard = () => {
 
     const [ isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
-    const navigate = useNavigate();
+    const [ isExportModalOpen, setIsExportModalOpen] = useState(false)
+    const [ exportOptions, setExportOptions] = useState({
+        exportType: "transactions",
+        fromDate: "",
+        toDate: "",
+    });
+
     const { 
         deleteUserAccount
     } = useUserSetting();
+
+    const { 
+        exportDataCsv, 
+    } = useExportData();
+
     const { logout } = useSession();
     
     const handleDeleteAccount = async () => {
@@ -28,6 +40,41 @@ const DangerZoneCard = () => {
         } 
         
     }
+
+    const handleExport = async () => {
+        const { exportType, fromDate, toDate } = exportOptions
+        
+        if (exportType === "dateRange"){
+            if (!fromDate || !toDate) {
+                toast.error("Please select both dates.")
+            }
+        }
+
+        if (fromDate > toDate) {
+            toast.error("Start date must be before end date.");
+            return;
+        }
+
+        console.log("Export options:", exportOptions);
+        try {
+            if (exportType === "transactions") {
+                await exportDataCsv();
+            } else if (exportType === "dateRange") {
+                await exportDataCsv(fromDate,toDate)
+                return;
+            } else if (exportType === "categories" || exportType === "budgets") {
+                toast.error("This export option is not available yet.");
+                return;
+            }
+    
+            setIsExportModalOpen(false);
+        } catch (error) {
+            console.error("Error exporting data:", error);
+            toast.error("Failed to export data.");
+        }
+        
+    };
+
 
     return (
         <BackgroundCard
@@ -84,7 +131,7 @@ const DangerZoneCard = () => {
 
                     </div>
 
-                    {/* <button
+                    <button
                         className="
                             rounded-xl
                             border
@@ -96,22 +143,16 @@ const DangerZoneCard = () => {
                             transition
                             hover:bg-slate-100
                         "
+                        onClick={() => {
+                            setIsExportModalOpen(prev => !prev)
+                            setExportOptions({
+                                exportType: "transactions",
+                                fromDate: "",
+                                toDate: "",
+                            });
+                        }}
                     >
                         Export
-                    </button> */}
-
-                    <button
-                        disabled
-                        className="
-                            cursor-not-allowed
-                            rounded-xl
-                            bg-slate-100
-                            px-5 py-2.5
-                            text-sm font-medium
-                            text-slate-500
-                        "
-                    >
-                        Coming Soon
                     </button>
 
                 </div>
@@ -184,7 +225,7 @@ const DangerZoneCard = () => {
                 </div>
 
             </div>
-
+{/* Delete Modal */}
             <Modal
             isOpen={isDeleteModalOpen}
             onClose={() => setIsDeleteModalOpen(prev => !prev)}
@@ -212,6 +253,33 @@ const DangerZoneCard = () => {
             >
                 Are you sure you want to delete your account?
             </h1>
+            
+        </Modal>
+
+{/* Export Data modal */}
+        <Modal
+            isOpen={isExportModalOpen}
+            onClose={() => setIsExportModalOpen(prev => !prev)}
+            title="What would you like to export?"
+            footer={
+                <>
+                    <Button
+                        onClick={()=>setIsExportModalOpen(prev => !prev)}
+                        variant="secondary"
+                    >
+                        Cancel
+                    </Button>
+
+                    <Button
+                        variant="success"
+                        onClick={() => handleExport()}
+                    >
+                        Export
+                    </Button>
+                </>
+            }
+        >
+            <ExportOptions onChange={setExportOptions}/>
             
         </Modal>
 
