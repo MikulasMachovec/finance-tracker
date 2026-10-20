@@ -245,6 +245,7 @@ The core application functionality is implemented, including:
 * [x] Settings interface
 * [x] Password change
 * [x] Account deletion
+* [x] Export transactions
 
 Additional backend settings functionality and further improvements are planned.
 
@@ -257,7 +258,6 @@ Potential future development includes:
 * [ ] Complete notification preferences
 * [ ] Advanced financial reports
 * [ ] Implement user preferences (date format, currency, etc.)
-* [ ] Export transactions
 * [ ] Recurring transactions
 * [ ] Improved validation and error handling
 * [ ] Automated tests
