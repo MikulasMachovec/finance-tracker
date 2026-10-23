@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { getCurrentUser, updateUserProfile, updatePassword } from "../api/userApi";
+import { getCurrentUser, updateUserProfile, updatePassword,deleteAccount } from "../api/userApi";
 
 export default function useUserSetting(){
 
@@ -32,8 +32,8 @@ export default function useUserSetting(){
         await updatePassword(updatedPassword)
     }
 
-    const deleteUserAccount = async (updatedPassword) => {
-        // TODO deleteUserAccount
+    const deleteUserAccount = async () => {
+        await deleteAccount();
         return;
     }
 
