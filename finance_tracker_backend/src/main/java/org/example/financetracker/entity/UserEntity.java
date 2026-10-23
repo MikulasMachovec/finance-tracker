@@ -73,4 +73,17 @@ public class UserEntity implements UserDetails {
             orphanRemoval = true
     )
     private List<BudgetEntity> budgets;
+
+    @Column(length = 20)
+    @Builder.Default
+    private String dateFormat = "dd/MM/yyyy";
+
+    @Column(length = 3, nullable = false)
+    @Builder.Default
+    private String currency = "EUR";
+
+    @Column(length = 2, nullable = false)
+    @Builder.Default
+    private String language = "en";
+
 }

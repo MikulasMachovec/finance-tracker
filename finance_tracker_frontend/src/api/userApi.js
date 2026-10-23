@@ -15,3 +15,11 @@ export const updatePassword = (data) => {
 export const deleteAccount = () => {
     return apiDelete("/users/deleteAccount")
 }
+
+export const getUserPreferences = () => {
+    return apiGet("/users/preferences")
+}
+
+export const updateUserPreferences = (preferences) => {
+    return apiPut("/users/preferences", preferences)
+}

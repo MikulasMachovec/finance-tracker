@@ -1,13 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BackgroundCard from "../ui/BackgroundCard";
+import useUserPreferences from "../../hooks/useUserPreferences";
+import Button from "../ui/Button";
+import toast from "react-hot-toast";
+
+const DEFAULT_PREFERENCES = {
+    currency: "EUR",
+    dateFormat: "dd/MM/yyyy",
+    language: "en",
+};
 
 const PreferencesCard = () => {
     
-    const [preferences, setPreferences] = useState({
-        currency: "EUR",
-        dateFormat: "DD/MM/YYYY",
-        language: "English",
-    }) 
+    const {
+        preferences,
+        setPreferences,
+        loading,
+        saving,
+        savePreferences,
+    } = useUserPreferences();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -16,6 +27,16 @@ const PreferencesCard = () => {
             ...prev,
             [name]: value,
         }));
+    };
+
+    const handleSave = async () => {
+        try {
+            await savePreferences(preferences);
+            toast.success("Preferences saved successfully.");
+        } catch (error) {
+            console.error("Failed to save preferences:", error);
+            toast.error("Could not save preferences.");
+        }
     };
 
     return(
@@ -35,6 +56,7 @@ const PreferencesCard = () => {
                         name="currency"
                         value={preferences.currency}
                         onChange={handleChange}
+                        disabled={saving}
                         className="
                             w-full
                             rounded-xl
@@ -44,10 +66,8 @@ const PreferencesCard = () => {
                             focus:outline-none
                         "
                     >
-                        <option>EUR</option>
-                        <option>USD</option>
-                        <option>GBP</option>
-                        <option>CZK</option>
+                        <option value="EUR">EUR (€)</option>
+                        <option value="USD">USD ($)</option>
                     </select>
                 </div>
 
@@ -61,6 +81,7 @@ const PreferencesCard = () => {
                         name="dateFormat"
                         value={preferences.dateFormat}
                         onChange={handleChange}
+                        disabled={saving}
                         className="
                             w-full
                             rounded-xl
@@ -70,9 +91,15 @@ const PreferencesCard = () => {
                             focus:outline-none
                         "
                     >
-                        <option>DD/MM/YYYY</option>
-                        <option>MM/DD/YYYY</option>
-                        <option>YYYY-MM-DD</option>
+                        <option value="dd/MM/yyyy">
+                            DD/MM/YYYY
+                        </option>
+                        <option value="MM/dd/yyyy">
+                            MM/DD/YYYY
+                        </option>
+                        <option value="yyyy-MM-dd">
+                            YYYY-MM-DD
+                        </option>
                     </select>
                 </div>
 
@@ -86,6 +113,7 @@ const PreferencesCard = () => {
                         name="language"
                         value={preferences.language}
                         onChange={handleChange}
+                        disabled={saving}
                         className="
                             w-full
                             rounded-xl
@@ -95,13 +123,20 @@ const PreferencesCard = () => {
                             focus:outline-none
                         "
                     >
-                        <option>English</option>
-                        <option>Slovak</option>
-                        <option>Czech</option>
+                        <option value="en">English</option>
+                        <option value="sk">Slovak</option>
                     </select>
                 </div>
+            </div>
+            <div className="mt-6 flex justify-end">
+                        <Button
+                            onClick={() => handleSave()}
+                            disabled={saving}
+                        >
+                            {saving ? "Saving..." : "Save preferences"}
+                        </Button>
+                    </div>
 
-                </div>
         </BackgroundCard>
     )
 };

@@ -3,6 +3,7 @@ package org.example.financetracker.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.example.financetracker.dto.user.UpdatePasswordRequest;
+import org.example.financetracker.dto.user.UserPreferencesDTO;
 import org.example.financetracker.dto.user.UserResponseDTO;
 import org.example.financetracker.dto.user.UserUpdateResponse;
 import org.example.financetracker.entity.UserEntity;
@@ -78,5 +79,58 @@ public class UserServiceImpl implements UserService {
     public void deleteUserAccount() {
         UserEntity user = authenticationService.getCurrentUser();
         userRepository.delete(user);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public UserPreferencesDTO getPreferences() {
+        UserEntity user = authenticationService.getCurrentUser();
+
+        return new UserPreferencesDTO(
+                user.getDateFormat() != null
+                        ? user.getDateFormat() : "dd/MM/yyyy",
+                user.getCurrency() != null
+                        ? user.getCurrency() : "EUR",
+                user.getLanguage() != null
+                        ? user.getLanguage() : "en"
+        );
+    }
+
+    @Override
+    @Transactional()
+    public UserPreferencesDTO updatePreferences(UserPreferencesDTO request) {
+        UserEntity user = authenticationService.getCurrentUser();
+
+        if(!java.util.Set.of(
+                "dd/MM/yyyy", "MM/dd/yyyy", "yyyy-MM-dd"
+        ).contains(request.dateFormat())){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Unsupported date format");
+        }
+
+        if (!java.util.Set.of(
+                "EUR", "USD"
+        ).contains(request.currency())) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Unsupported currency");
+        }
+
+        if (!java.util.Set.of("sk", "en").contains(request.language())) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Unsupported language");
+        }
+
+        user.setDateFormat(request.dateFormat());
+        user.setCurrency(request.currency());
+        user.setLanguage(request.language());
+
+        UserEntity savedUser = userRepository.save(user);
+
+        return new UserPreferencesDTO(
+                savedUser.getDateFormat(),
+                savedUser.getCurrency(),
+                savedUser.getLanguage()
+        );
     }
 }

@@ -3,6 +3,7 @@ package org.example.financetracker.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.financetracker.dto.user.UpdatePasswordRequest;
+import org.example.financetracker.dto.user.UserPreferencesDTO;
 import org.example.financetracker.dto.user.UserResponseDTO;
 import org.example.financetracker.dto.user.UserUpdateResponse;
 import org.example.financetracker.security.CustomUserPrincipal;
@@ -55,4 +56,18 @@ public class UserController {
         userService.deleteUserAccount();
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/preferences")
+    public ResponseEntity<UserPreferencesDTO> getPreferences() {
+        return ResponseEntity.ok(userService.getPreferences());
+    }
+
+    @PutMapping("/preferences")
+    public ResponseEntity<UserPreferencesDTO> updatePreferences(
+            @RequestBody UserPreferencesDTO request
+    ) {
+        return ResponseEntity.ok(userService.updatePreferences(request));
+    }
+
+
 }
