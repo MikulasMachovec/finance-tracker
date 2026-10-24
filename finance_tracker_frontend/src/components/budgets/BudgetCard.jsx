@@ -1,3 +1,5 @@
+import { usePreferences } from "../../context/preferencesContext";
+import { formatCurrency } from "../../utils/formatCurrency";
 import DropdownMenu from "../ui/DropdownMenu";
 
 const BudgetCard = ({
@@ -5,6 +7,7 @@ const BudgetCard = ({
     onEdit,
     onDelete
 }) => {
+    const {preferences} = usePreferences();
     const percentage = (budget.spentAmount / budget.limitAmount) * 100;
 
     const progress = Math.min(percentage, 100);
@@ -71,11 +74,11 @@ const BudgetCard = ({
 
                 <div>
                     <p className="text-2xl font-bold text-slate-800">
-                        €{(budget.spentAmount ?? 0).toLocaleString()}
+                        {formatCurrency(budget.spentAmount ?? 0, preferences.currency)}
                     </p>
 
                     <p className="text-sm text-slate-500">
-                        of €{(budget.limitAmount ?? 0).toLocaleString()}
+                        of {formatCurrency(budget.limitAmount ?? 0, preferences.currency)}
                     </p>
                 </div>
 
@@ -93,9 +96,10 @@ const BudgetCard = ({
 
                     <p className="text-sm text-slate-500">
                         {remaining >= 0
-                            ? `${remaining.toLocaleString()}€ left`
-                            : `${Math.abs(remaining).toLocaleString()}€ over`
+                            ? `${formatCurrency(remaining, preferences.currency)} left`
+                            : `${formatCurrency(Math.abs(remaining), preferences.currency)} over`
                         }
+                        
                     </p>
 
                 </div>

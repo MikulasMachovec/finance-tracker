@@ -1,6 +1,8 @@
-import CATEGORY_COLORS from "../../constants/chartColors";
+import { usePreferences } from "../../context/preferencesContext";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 const TopSpendingCategories = ({ categories }) => {  
+    const {preferences} = usePreferences();
 
     const totalSpent = categories.reduce(
         (sum, category) => sum + category.amount,
@@ -48,13 +50,7 @@ const TopSpendingCategories = ({ categories }) => {
                                 <div className="text-right">
 
                                     <p className="font-semibold">
-                                        €{category.amount.toLocaleString(
-                                            undefined,
-                                            {
-                                                minimumFractionDigits: 2,
-                                                maximumFractionDigits: 2
-                                            }
-                                        )}
+                                        {formatCurrency(category.amount, preferences.currency)}
                                     </p>
 
                                     <p className="text-xs text-slate-500">

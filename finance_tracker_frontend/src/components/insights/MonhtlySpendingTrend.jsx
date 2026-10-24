@@ -1,3 +1,5 @@
+import { usePreferences } from "../../context/preferencesContext";
+import { formatCurrency } from "../../utils/formatCurrency";
 import BackgroundCard from "../ui/BackgroundCard";
 
 import {
@@ -11,6 +13,7 @@ import {
 } from "recharts";
 
 const MonthlySpendingTrend = ({monthlySpending}) => {  
+    const { preferences } = usePreferences();
 
     return (
         <BackgroundCard
@@ -40,7 +43,7 @@ const MonthlySpendingTrend = ({monthlySpending}) => {
 
                     <Tooltip
                         formatter={(value) => [
-                            `€${Number(value).toLocaleString()}`,
+                            formatCurrency(value, preferences.currency),
                             "Spent",
                         ]}
                     />

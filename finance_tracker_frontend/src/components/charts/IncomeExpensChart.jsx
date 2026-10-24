@@ -1,3 +1,5 @@
+import { usePreferences } from "../../context/preferencesContext";
+import { formatCurrency } from "../../utils/formatCurrency";
 import BackgroundCard from "../ui/BackgroundCard";
 
 import {
@@ -12,6 +14,9 @@ import {
 } from "recharts";
 
 const IncomeExpenseChart = ( {monthlyFinance} ) => {
+    const {preferences} = usePreferences();
+    
+    
     return(
         <BackgroundCard
         title="Income vs Expenses"
@@ -30,7 +35,7 @@ const IncomeExpenseChart = ( {monthlyFinance} ) => {
                     <YAxis />
 
                     <Tooltip 
-                        formatter={(value,name) => [`${value} €`, name]}
+                        formatter={(value,name) => [formatCurrency(value, preferences.currency), name]}
                     />
 
                     <Legend />

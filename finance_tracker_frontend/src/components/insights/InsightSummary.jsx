@@ -6,8 +6,12 @@ import {
 } from "react-icons/fa6";
 
 import InsightSummaryCard from "./InsightSummaryCard";
+import { formatCurrency } from "../../utils/formatCurrency";
+import { usePreferences } from "../../context/preferencesContext";
 
 const InsightSummary = ({ summary }) => {
+
+    const {preferences} = usePreferences();
         
         return (
             <div
@@ -21,7 +25,7 @@ const InsightSummary = ({ summary }) => {
     
                 <InsightSummaryCard
                     title="Total Income"
-                    value={`${summary.income}€`}
+                    value={formatCurrency(summary.income, preferences.currency)}
                     subtitle="This month"
                     icon={FaArrowTrendUp}
                     iconColor="text-green-600"
@@ -31,7 +35,7 @@ const InsightSummary = ({ summary }) => {
     
                 <InsightSummaryCard
                     title="Total Expenses"
-                    value={`${summary.expense}€`}
+                    value={formatCurrency(summary.expense, preferences.currency)}
                     subtitle="This month"
                     icon={FaArrowTrendDown}
                     iconColor="text-red-600"
@@ -41,7 +45,7 @@ const InsightSummary = ({ summary }) => {
     
                 <InsightSummaryCard
                     title="Balance"
-                    value={`${summary.balance}€`}
+                    value={formatCurrency(summary.balance, preferences.currency)}
                     subtitle="Income - Expenses"
                     icon={FaChartLine}
                     iconColor="text-blue-600"

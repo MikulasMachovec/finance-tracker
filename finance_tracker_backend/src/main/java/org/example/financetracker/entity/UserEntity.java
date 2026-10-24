@@ -82,8 +82,4 @@ public class UserEntity implements UserDetails {
     @Builder.Default
     private String currency = "EUR";
 
-    @Column(length = 2, nullable = false)
-    @Builder.Default
-    private String language = "en";
-
 }

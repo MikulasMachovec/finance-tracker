@@ -1,4 +1,8 @@
+import { usePreferences } from "../../context/preferencesContext";
+import { formatCurrency } from "../../utils/formatCurrency";
+
 const CustomLegend = ({ data }) => {
+    const {preferences} = usePreferences();
     return (
         <div className="mt-6 space-y-3">
             {data.map((item) => (
@@ -20,7 +24,7 @@ const CustomLegend = ({ data }) => {
                     </div>
 
                     <span className="font-medium">
-                        €{item.amount.toLocaleString()}
+                        {formatCurrency(item.amount, preferences.currency)}
                     </span>
                 </div>
             ))}

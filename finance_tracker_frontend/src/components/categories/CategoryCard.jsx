@@ -1,3 +1,5 @@
+import { usePreferences } from "../../context/preferencesContext";
+import { formatCurrency } from "../../utils/formatCurrency";
 import BackgroundCard from "../ui/BackgroundCard";
 import DropdownMenu from "../ui/DropdownMenu";
 
@@ -6,6 +8,7 @@ const CategoryCard = ({
     onEdit,
     onDelete
 }) => {
+    const {preferences} = usePreferences();
     const percentage = (category.spent / category.budget) * 100;
     const progress = Math.min(percentage, 100);
     const remaining = category.budget - category.spent;
@@ -60,7 +63,7 @@ const CategoryCard = ({
                     </span>  
 
                     <span className="font-medium">
-                        {category.budget.toLocaleString()}€
+                        {formatCurrency(category.budget, preferences.currency)}
                     </span>
 
                 </div>
@@ -71,7 +74,7 @@ const CategoryCard = ({
                     </span>  
 
                     <span className="font-medium">
-                        {(category.spent ?? 0).toLocaleString()}€
+                        {formatCurrency(category.spent ?? 0, preferences.currency)}
                     </span>
                 </div>
 
@@ -88,7 +91,7 @@ const CategoryCard = ({
                         }
                     
                     >
-                        {Math.abs(remaining).toLocaleString()}€
+                        {formatCurrency(Math.abs(remaining), preferences.currency)}
                     </span>
                 </div>
 

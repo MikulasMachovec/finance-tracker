@@ -1,4 +1,9 @@
+import { usePreferences } from "../../../context/preferencesContext";
+import { formatCurrency } from "../../../utils/formatCurrency";
+
 const BudgetProgressItem = ({ budget }) => {
+
+    const { preferences } = usePreferences();
     
     const percentage = (budget.spentAmount / budget.limitAmount) * 100;
     
@@ -27,7 +32,9 @@ const BudgetProgressItem = ({ budget }) => {
                     </p>
 
                     <p  className="text-sm text-slate-500">
-                        €{budget.spentAmount.toLocaleString()} / €{budget.limitAmount.toLocaleString()}
+                        {formatCurrency(budget.spentAmount,preferences.currency)} 
+                        / 
+                        {formatCurrency(budget.limitAmount,preferences.currency)}
                     </p>
                 </div>
 
@@ -45,8 +52,8 @@ const BudgetProgressItem = ({ budget }) => {
                         }`}
                     >
                         {remaining >= 0
-                            ? `€${remaining.toLocaleString()} left`
-                            : `€${Math.abs(remaining).toLocaleString()} over`}
+                            ? `${formatCurrency( remaining, preferences.currency)} left`
+                            : `${formatCurrency( Math.abs(remaining), preferences.currency)} over`}
                     </p>
 
                 </div>

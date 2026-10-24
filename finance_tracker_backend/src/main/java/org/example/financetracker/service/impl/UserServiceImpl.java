@@ -90,9 +90,7 @@ public class UserServiceImpl implements UserService {
                 user.getDateFormat() != null
                         ? user.getDateFormat() : "dd/MM/yyyy",
                 user.getCurrency() != null
-                        ? user.getCurrency() : "EUR",
-                user.getLanguage() != null
-                        ? user.getLanguage() : "en"
+                        ? user.getCurrency() : "EUR"
         );
     }
 
@@ -116,21 +114,14 @@ public class UserServiceImpl implements UserService {
                     HttpStatus.BAD_REQUEST, "Unsupported currency");
         }
 
-        if (!java.util.Set.of("sk", "en").contains(request.language())) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "Unsupported language");
-        }
-
         user.setDateFormat(request.dateFormat());
         user.setCurrency(request.currency());
-        user.setLanguage(request.language());
 
         UserEntity savedUser = userRepository.save(user);
 
         return new UserPreferencesDTO(
                 savedUser.getDateFormat(),
-                savedUser.getCurrency(),
-                savedUser.getLanguage()
+                savedUser.getCurrency()
         );
     }
 }

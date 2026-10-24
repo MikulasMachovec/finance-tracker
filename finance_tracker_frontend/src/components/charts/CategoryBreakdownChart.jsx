@@ -13,9 +13,13 @@ import CustomSector from "./CustomSector";
 import CustomLegend from "./CustomLegend";
 import CustomPieLabel from "./CustomPieLabel";
 import { useState } from "react";
+import { formatCurrency } from "../../utils/formatCurrency";
+import { usePreferences } from "../../context/preferencesContext";
 
 
 const CategoryBreakdownChart = ({ categoryBreakdown }) => {
+
+    const { preferences } = usePreferences();
 
     const [ showLegend, setShowLegend ] = useState(false);
     return (
@@ -42,7 +46,7 @@ const CategoryBreakdownChart = ({ categoryBreakdown }) => {
 
                     <Tooltip 
                         formatter={(value, name) => [
-                            `${Number(value).toLocaleString()} €`, name
+                            formatCurrency(value, preferences.currency), name
                         ]}
                     />
                 </PieChart>

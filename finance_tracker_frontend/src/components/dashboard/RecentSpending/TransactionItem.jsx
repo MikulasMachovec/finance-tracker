@@ -1,4 +1,10 @@
+import { usePreferences } from "../../../context/preferencesContext";
+import { formatCurrency } from "../../../utils/formatCurrency";
+import { formatDate } from "../../../utils/formatDate";
+
 const TransactionItem = ({ transaction }) => {
+
+    const { preferences } = usePreferences();
 
     const isIncome = transaction.type === "INCOME";  
 
@@ -10,7 +16,7 @@ const TransactionItem = ({ transaction }) => {
                 </p>
 
                 <p className="text-sm text-slate-800">
-                    {transaction.categoryName} • {transaction.transactionDate}
+                    {transaction.categoryName} • {formatDate(transaction.transactionDate, preferences.dateFormat)}
                 </p>
 
             </div>
@@ -26,7 +32,10 @@ const TransactionItem = ({ transaction }) => {
                 `}
             >
                 {isIncome ? "+" : "-"}
-                €{Math.abs(transaction.amount).toLocaleString()}
+                {formatCurrency(
+                    Math.abs(transaction.amount),
+                    preferences.currency
+                )}
             </span>
 
         </div>

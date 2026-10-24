@@ -6,7 +6,8 @@ import {
   } from "react-icons/fa6";
   
 import SummaryCard from "./SummaryCard";
-import useDashboard from "../../../hooks/useDashboard";
+import { formatCurrency } from "../../../utils/formatCurrency";
+import { usePreferences } from "../../../context/preferencesContext";
   
   const SummaryCards = ({
     income,
@@ -14,37 +15,31 @@ import useDashboard from "../../../hooks/useDashboard";
     balance,
     savingsPercentage,
   }) => {
+
+    const { preferences } = usePreferences();
     
     const cards = [
       {
         title: "Income",
-        value: `${income.toLocaleString()}€`,
-        change: "12%",
-        trend: "up",
+        value: formatCurrency( income, preferences.currency ),
         icon: FaArrowTrendUp,
         color: "bg-green-500",
       },
       {
         title: "Expenses",
-        value: `${expense.toLocaleString()}€`,
-        change: "8%",
-        trend: "down",
+        value: formatCurrency( expense, preferences.currency ),
         icon: FaArrowTrendDown,
         color: "bg-red-500",
       },
       {
         title: "Balance",
-        value: `${balance.toLocaleString()}€`,
-        change: "5%",
-        trend: "up",
+        value: formatCurrency( balance, preferences.currency ),
         icon: FaWallet,
         color: "bg-blue-500",
       },
       {
         title: "Savings",
         value: `${savingsPercentage}%`,
-        change: "3%",
-        trend: "up",
         icon: FaPiggyBank,
         color: "bg-purple-500",
       },

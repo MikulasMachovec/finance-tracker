@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom'
 import Sidebar from './components/layout/Sidebar'
 import AppRoutes from './routes/AppRoutes';
 import { SessionProvider } from './context/sessionProvider';
+import PreferencesProvider from './context/preferencesProvider';
 
 function App() {
   const [ collapsed, setCollapsed ] = useState(false) 
@@ -12,9 +13,11 @@ function App() {
   return (
     <>
     <SessionProvider>
-      <BrowserRouter>
-            <AppRoutes />
-      </BrowserRouter>
+      <PreferencesProvider>
+        <BrowserRouter>
+              <AppRoutes />
+        </BrowserRouter>
+      </PreferencesProvider>
     </SessionProvider>
     
     <Toaster

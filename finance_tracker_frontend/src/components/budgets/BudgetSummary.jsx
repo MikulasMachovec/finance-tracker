@@ -4,8 +4,11 @@ import {
     FaPiggyBank,
 } from "react-icons/fa6";
 import BudgetSummaryCard from "./BudgetSummaryCard";
+import { formatCurrency } from "../../utils/formatCurrency";
+import { usePreferences } from "../../context/preferencesContext";
 
 const BudgetSummary = ({ budgets }) => {
+    const {preferences} = usePreferences();
     const totalBudget = budgets.reduce(
         (sum, budget) => sum + budget.limitAmount,
         0
@@ -22,21 +25,21 @@ const BudgetSummary = ({ budgets }) => {
         <div className=" grid gap-6 md:grid-cols-3">
             <BudgetSummaryCard
                 title="Total Budget"
-                value={`€${totalBudget.toLocaleString()}`}
+                value={formatCurrency(totalBudget, preferences.currency)}
                 subtitle="Monthly budget"
                 icon={FaWallet}
             />
 
             <BudgetSummaryCard
                 title="Spent"
-                value={`€${totalSpent.toLocaleString()}`}
+                value={formatCurrency(totalSpent, preferences.currency)}
                 subtitle="Current spending"
                 icon={FaArrowTrendUp}
             />
 
             <BudgetSummaryCard
                 title="Remaining"
-                value={`€${remaining.toLocaleString()}`}
+                value={formatCurrency(remaining, preferences.currency)}
                 subtitle="Available to spend"
                 icon={FaPiggyBank}
             />

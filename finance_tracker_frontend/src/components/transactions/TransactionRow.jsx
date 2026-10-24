@@ -1,3 +1,6 @@
+import { usePreferences } from "../../context/preferencesContext";
+import { formatCurrency } from "../../utils/formatCurrency";
+import { formatDate } from "../../utils/formatDate";
 import DropdownMenu from "../ui/DropdownMenu";
 
 const TransactionRow = ({ 
@@ -5,6 +8,8 @@ const TransactionRow = ({
     onEdit,
     onDelete 
 }) => {
+
+    const { preferences } = usePreferences();
 
     const income = transaction.type === "INCOME"
 
@@ -25,7 +30,7 @@ const TransactionRow = ({
                 <p className="text-sm text-slate-500">
                     {transaction.categoryName}
                     {" • "}
-                    {transaction.transactionDate}
+                    {formatDate(transaction.transactionDate, preferences.dateFormat)}
                 </p>
 
             </div>
@@ -41,7 +46,10 @@ const TransactionRow = ({
                     `}
                 >
                     {income ? "+" : "-"}
-                    {transaction.amount.toLocaleString()} €
+                    {formatCurrency(
+                        transaction.amount,
+                        preferences.currency
+                    )}
                 </p>
 
                 <DropdownMenu

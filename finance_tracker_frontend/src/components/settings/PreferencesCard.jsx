@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import BackgroundCard from "../ui/BackgroundCard";
-import useUserPreferences from "../../hooks/useUserPreferences";
 import Button from "../ui/Button";
 import toast from "react-hot-toast";
+import { usePreferences } from "../../context/preferencesContext";
 
 const DEFAULT_PREFERENCES = {
     currency: "EUR",
     dateFormat: "dd/MM/yyyy",
-    language: "en",
 };
 
 const PreferencesCard = () => {
@@ -18,7 +17,7 @@ const PreferencesCard = () => {
         loading,
         saving,
         savePreferences,
-    } = useUserPreferences();
+    } = usePreferences();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -103,30 +102,6 @@ const PreferencesCard = () => {
                     </select>
                 </div>
 
-                {/* Language */}
-                <div>
-                    <label className="mb-2 block text-sm font-medium text-slate-700">
-                        Language
-                    </label>
-
-                    <select
-                        name="language"
-                        value={preferences.language}
-                        onChange={handleChange}
-                        disabled={saving}
-                        className="
-                            w-full
-                            rounded-xl
-                            border border-slate-300
-                            px-4 py-2
-                            focus:border-blue-500
-                            focus:outline-none
-                        "
-                    >
-                        <option value="en">English</option>
-                        <option value="sk">Slovak</option>
-                    </select>
-                </div>
             </div>
             <div className="mt-6 flex justify-end">
                         <Button

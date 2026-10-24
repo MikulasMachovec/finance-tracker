@@ -1,9 +1,6 @@
-
 const SummaryCard = ({
     title,
     value,
-    change,
-    trend,
     icon: Icon,
     color
 }) => {
