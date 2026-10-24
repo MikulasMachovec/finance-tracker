@@ -18,6 +18,9 @@ const Pagination = ({
                     hover:bg-slate-100
                     disabled:cursor-not-allowed
                     disabled:opacity-50
+                    dark:text-white
+                    dark:bg-slate-800
+                    dark:hover:bg-slate-600
                 "
             >
                 Previous
@@ -41,7 +44,7 @@ const Pagination = ({
                                     ${
                                         currentPage === page
                                             ? "bg-blue-600 text-white"
-                                            : "border border-slate-300 hover:bg-slate-100"
+                                            : "border border-slate-300 hover:bg-slate-100 dark:hover:bg-slate-600 dark:text-white"
                                     }
                                 `}
                             >
@@ -65,6 +68,8 @@ const Pagination = ({
                     hover:bg-slate-100
                     disabled:cursor-not-allowed
                     disabled:opacity-50
+                    dark:hover:bg-slate-600
+                    dark:text-white
                 "
             >
                 Next

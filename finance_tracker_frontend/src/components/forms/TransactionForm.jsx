@@ -100,7 +100,7 @@ const TransactionForm = ({
         >
             {/* Title */}
             <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700">
+                <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-white">
                     Title
                 </label>
 
@@ -130,7 +130,7 @@ const TransactionForm = ({
 
             {/* Amount */}
             <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700">
+                <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-white">
                     Amount (€)
                 </label>
 
@@ -164,7 +164,7 @@ const TransactionForm = ({
             <div className="grid grid-cols-2 gap-4">
 
             <div>
-                    <label className="mb-1 block text-sm font-medium text-slate-700">
+                    <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-white">
                         Type
                     </label>
 
@@ -188,7 +188,7 @@ const TransactionForm = ({
                 </div>
                 {formData.type === TRANSACTION_TYPES.EXPENSE && (
                     <div>
-                    <label className="mb-1 block text-sm font-medium text-slate-700">
+                    <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-white">
                         Category
                     </label>
                     <select
@@ -231,7 +231,7 @@ const TransactionForm = ({
 
             {/* Date */}
             <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700">
+                <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-white">
                     Date
                 </label>
                 
@@ -254,7 +254,7 @@ const TransactionForm = ({
 
             {/* Description */}
             <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700">
+                <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-white">
                     Description
                 </label>
 

@@ -68,7 +68,7 @@ const CategoryForm = ({
         >
             {/* Category name */}
             <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700">
+                <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-white">
                     Category Name
                 </label>
 
@@ -90,7 +90,7 @@ const CategoryForm = ({
 
             {/* Color */}
             <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">
+                <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-white">
                     Color
                 </label>
 
@@ -134,7 +134,7 @@ const CategoryForm = ({
 
             {/* Description */}
             <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700">
+                <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-white">
                     Description
                 </label>
 

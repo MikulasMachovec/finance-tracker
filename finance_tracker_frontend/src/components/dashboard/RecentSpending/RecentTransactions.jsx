@@ -32,7 +32,7 @@ const RecentTransactions = ({ transactions }) => {
                         w-full
                         text-sm
                         font-medium
-                        text-blue-600
+                        text-blue-600 dark:text-blue-400
                         hover:backgound-blue-700
                     "
                 >

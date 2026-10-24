@@ -36,6 +36,7 @@ const Button = ({
                 transition
                 ${variants[variant]}
                 ${className}
+                dark:text-white
             `}
         >
             {children}

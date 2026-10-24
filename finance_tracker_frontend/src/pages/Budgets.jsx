@@ -14,7 +14,6 @@ import EmptyState from "../components/ui/EmptyState";
 const Budgets = () => {
 
     const [selectedBudget, setSelectedBudget] = useState(null);
-
     const [showAddModal, setShowAddModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -242,7 +241,7 @@ const Budgets = () => {
 
                 <div className="space-y-4">
 
-                    <p className="text-slate-700">
+                    <p className="text-slate-700 dark:text-white">
                         Are you sure you want to delete this budget?
                     </p>
 
@@ -254,6 +253,7 @@ const Budgets = () => {
                                 border border-slate-200
                                 bg-slate-50
                                 p-4
+                                dark:bg-slate-800
                             "
                         >
 
@@ -266,18 +266,18 @@ const Budgets = () => {
                                         rounded-full
                                     "
                                     style={{
-                                        backgroundColor: selectedBudget.color
+                                        backgroundColor: selectedBudget.categoryColor
                                     }}
                                 />
 
-                                <p className="font-semibold">
-                                    {selectedBudget.category}
+                                <p className="font-semibold dark:text-white">
+                                    {selectedBudget.categoryName}
                                 </p>
 
                             </div>
 
 
-                            <p className="mt-2 text-sm text-slate-500">
+                            <p className="mt-2 text-sm text-slate-500 dark:text-slate-300">
                                 €{selectedBudget.limitAmount.toLocaleString()} monthly limit
                             </p>
 
@@ -285,7 +285,7 @@ const Budgets = () => {
                     )}
 
 
-                    <p className="text-sm text-red-500">
+                    <p className="text-sm text-red-500 ">
                         This action cannot be undone.
                     </p>
 

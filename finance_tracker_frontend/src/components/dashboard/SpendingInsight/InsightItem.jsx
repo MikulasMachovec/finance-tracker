@@ -29,11 +29,11 @@ const InsightItem = ({ insight }) => {
                 <Icon size={18} />
             </div>
             <div className="flex-1">
-                <h3 className="font-semibold text-slate-800">
+                <h3 className="font-semibold text-slate-800 dark:text-white">
                     {insight.title}
                 </h3>
 
-                <p className="mt-1 text-sm text-slate-500">
+                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                     {insight.description}
                 </p>
             </div>

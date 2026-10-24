@@ -27,11 +27,11 @@ const BudgetProgressItem = ({ budget }) => {
             <div className="flex items-center justify-between">
                 
                 <div>
-                    <p className="font-medium text-slate-800">
+                    <p className="font-medium text-slate-800 dark:text-white">
                         {budget.categoryName}
                     </p>
 
-                    <p  className="text-sm text-slate-500">
+                    <p  className="text-sm text-slate-500 dark:text-slate-300">
                         {formatCurrency(budget.spentAmount,preferences.currency)} 
                         / 
                         {formatCurrency(budget.limitAmount,preferences.currency)}
@@ -40,15 +40,15 @@ const BudgetProgressItem = ({ budget }) => {
 
                 <div className="text-right">
                     
-                    <p className="font-semibold"> 
+                    <p className="font-semibold dark:text-white"> 
                         {percentage.toFixed(0)}%
                     </p>
 
                     <p
                         className={`text-xs ${
                             remaining >= 0
-                                ? "text-slate-500"
-                                : "text-red-500"
+                                ? "text-slate-500 dark:text-slate-300"
+                                : "text-red-500 dark:text-red-300"
                         }`}
                     >
                         {remaining >= 0

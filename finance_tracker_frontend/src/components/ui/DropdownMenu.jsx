@@ -63,7 +63,7 @@ const DropdownMenu = ({
                         rounded-xl
                         border
                         border-slate-200
-                        bg-white
+                        bg-white dark:bg-slate-800
                         shadow-lg
                     "
                 >
@@ -78,7 +78,7 @@ const DropdownMenu = ({
                             py-2.5
                             text-left
                             text-sm
-                            text-slate-700
+                            text-slate-700 dark:text-white
                             transition-colors
                             hover:bg-slate-100
                         "
@@ -97,7 +97,7 @@ const DropdownMenu = ({
                             py-2.5
                             text-left
                             text-sm
-                            text-red-600
+                            text-red-600 dark:text-red-300
                             transition-colors
                             hover:bg-red-50
                         "

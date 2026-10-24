@@ -12,7 +12,7 @@ const PageHeader = ({
 
             {/* Left */}
             <div>
-                <h1 className="text-3xl font-bold text-slate-800">
+                <h1 className="text-3xl font-bold text-slate-800 dark:text-white">
                     {title}
                 </h1>
 

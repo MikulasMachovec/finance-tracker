@@ -42,13 +42,13 @@ const FinancialRecommendations = ({ recommendations }) => {
     }
 
     return (
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:bg-slate-800">
 
-            <h2 className="text-lg font-semibold text-slate-800">
+            <h2 className="text-lg font-semibold text-slate-800 dark:text-white">
                 Financial Insights
             </h2>
 
-            <p className="mt-1 text-sm text-slate-500">
+            <p className="mt-1 text-sm text-slate-500 dark:text-white">
                 Personalized observations based on your spending.
             </p>
 
@@ -93,11 +93,11 @@ const FinancialRecommendations = ({ recommendations }) => {
 
                             <div>
 
-                                <h3 className="font-medium text-slate-800">
+                                <h3 className="font-medium text-slate-800 dark:text-white">
                                     {recommendation.title}
                                 </h3>
 
-                                <p className="mt-1 text-sm text-slate-500">
+                                <p className="mt-1 text-sm text-slate-500 dark:text-slate-300">
                                     {recommendation.message}
                                 </p>
 

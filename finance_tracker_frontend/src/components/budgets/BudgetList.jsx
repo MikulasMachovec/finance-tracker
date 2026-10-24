@@ -12,7 +12,7 @@ const BudgetList = ({
                 className="
                     rounded-2xl
                     border border-slate-200
-                    bg-white
+                    bg-white 
                     p-10
                     text-center
                 "

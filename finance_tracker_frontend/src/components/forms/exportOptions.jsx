@@ -70,6 +70,7 @@ export default function ExportOptions({ onChange }) {
                 <p className="
                         text-sm 
                         text-slate-500
+                        dark:text-slate-300
                         ">
                     Select the data you want to download.
                 </p>
@@ -106,7 +107,10 @@ export default function ExportOptions({ onChange }) {
                                 selected
                                     ? "border-blue-500 bg-blue-50"
                                     : "border-slate-200 bg-white hover:border-slate-400"
-                            }`}
+                            }
+                                dark:bg-slate-800 
+                                dark:text-white
+                            `}
                         >
                             {/* Icon */}
                             <span
@@ -121,10 +125,10 @@ export default function ExportOptions({ onChange }) {
     
                             {/* Text */}
                             <span className="flex min-w-0 flex-1 flex-col gap-1">
-                                <span className="text-sm font-semibold text-slate-800">
+                                <span className="text-sm font-semibold text-slate-800 dark:text-white">
                                     {option.label}
                                 </span>
-                                <span className="text-xs leading-relaxed text-slate-500">
+                                <span className="text-xs leading-relaxed text-slate-500 dark:text-slate-300">
                                     {option.description}
                                 </span>
                             </span>
@@ -149,12 +153,12 @@ export default function ExportOptions({ onChange }) {
             {/* Date range */}
             {exportType === "dateRange" && (
                 <div className="border-t border-slate-200 pt-4">
-                    <h4 className="mb-3 text-sm font-semibold text-slate-800">
+                    <h4 className="mb-3 text-sm font-semibold text-slate-800 dark:text-white">
                         Date range
                     </h4>
     
                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                        <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-600">
+                        <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-600 dark:text-white">
                             From
                             <input
                                 type="date"
@@ -166,11 +170,11 @@ export default function ExportOptions({ onChange }) {
                                         event.target.value
                                     )
                                 }
-                                className="w-full min-w-0 rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                                className="w-full min-w-0 rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:bg-slate-800 dark:text-white"
                             />
                         </label>
     
-                        <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-600">
+                        <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-600 dark:text-white">
                             To
                             <input
                                 type="date"
@@ -182,7 +186,7 @@ export default function ExportOptions({ onChange }) {
                                         event.target.value
                                     )
                                 }
-                                className="w-full min-w-0 rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                                className="w-full min-w-0 rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:bg-slate-800 dark:text-white"
                             />
                         </label>
                     </div>
@@ -197,7 +201,7 @@ export default function ExportOptions({ onChange }) {
     
             {/* Export format */}
             <div className="flex items-center justify-between gap-3 border-t border-slate-200 pt-4">
-                <span className="text-sm text-slate-500">
+                <span className="text-sm text-slate-500 dark:text-slate-300">
                     Export format
                 </span>
     

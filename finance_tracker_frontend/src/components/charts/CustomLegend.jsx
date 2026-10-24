@@ -4,7 +4,7 @@ import { formatCurrency } from "../../utils/formatCurrency";
 const CustomLegend = ({ data }) => {
     const {preferences} = usePreferences();
     return (
-        <div className="mt-6 space-y-3">
+        <div className="mt-6 space-y-3 ">
             {data.map((item) => (
                 <div
                     key={item.categoryName}
@@ -18,7 +18,7 @@ const CustomLegend = ({ data }) => {
                             }}
                         />
 
-                        <span className="text-sm text-slate-700">
+                        <span className="text-sm text-slate-700 dark:text-white">
                             {item.categoryName}
                         </span>
                     </div>

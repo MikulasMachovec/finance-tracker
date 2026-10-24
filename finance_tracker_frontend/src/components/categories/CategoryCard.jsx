@@ -36,11 +36,11 @@ const CategoryCard = ({
                     />
                         <div>
 
-                            <h3 className="font-semibold text-slate-800">
+                            <h3 className="font-semibold text-slate-800 dark:text-white">
                                 {category.name}
                             </h3>
 
-                            <p className="text-sm text-slate-500">
+                            <p className="text-sm text-slate-500 dark:text-white">
                                 {category.transactions} transactions
                             </p>
 
@@ -57,8 +57,8 @@ const CategoryCard = ({
             {/* Budget */}
             <div className="mt-4 space-y-2">
                 
-                <div className="flex justify-between text-sm">
-                    <span className="text-slate-500">
+                <div className="flex justify-between text-sm dark:text-white">
+                    <span className="text-slate-500 dark:text-white" >
                         Budget
                     </span>  
 
@@ -68,8 +68,8 @@ const CategoryCard = ({
 
                 </div>
 
-                <div className="flex justify-between text-sm">
-                    <span className="text-slate-500">
+                <div className="flex justify-between text-sm dark:text-white">
+                    <span className="text-slate-500 dark:text-white">
                         Spent
                     </span>  
 
@@ -78,16 +78,16 @@ const CategoryCard = ({
                     </span>
                 </div>
 
-                <div className="flex justify-between text-sm">
-                    <span className="text-slate-500">
+                <div className="flex justify-between text-sm dark:text-white">
+                    <span className="text-slate-500 dark:text-white">
                         Remaining
                     </span>  
 
                     <span 
                         className={
                             remaining >= 0
-                            ? "font-medium text-green-600"
-                            : "font-medium text-red-500"
+                            ? "font-medium text-green-600 dark:text-green-400"
+                            : "font-medium text-red-500 "
                         }
                     
                     >

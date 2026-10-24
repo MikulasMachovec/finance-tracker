@@ -73,7 +73,7 @@ const EditProfileForm = ({
             className="space-y-5"
         >
             {/* First name */}
-            <label className="mb-1 block text-sm font-medium text-slate-700">
+            <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-white">
                 First name:
             </label>
 
@@ -92,7 +92,7 @@ const EditProfileForm = ({
             )}
 
             {/* Last name */}
-            <label className="mb-1 block text-sm font-medium text-slate-700">
+            <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-white">
                 Last name:
             </label>
 
@@ -111,7 +111,7 @@ const EditProfileForm = ({
             )}
 
             {/* Email */}
-            <label className="mb-1 block text-sm font-medium text-slate-700">
+            <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-white">
                 Email:
             </label>
 

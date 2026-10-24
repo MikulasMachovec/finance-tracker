@@ -6,7 +6,7 @@ import Button from "../ui/Button";
 import useUserSetting from "../../hooks/useUserSetting";
 import toast from "react-hot-toast";
 import { useSession } from "../../context/sessionProvider";
-import ExportOptions from "../forms/exportOptions";
+import ExportOptions from "../forms/ExportOptions";
 import useExportData from "../../hooks/useExportData";
 
 const DangerZoneCard = () => {
@@ -119,7 +119,7 @@ const DangerZoneCard = () => {
 
                         <div>
 
-                            <h3 className="font-semibold text-slate-800">
+                            <h3 className="font-semibold text-slate-800 dark:text-white">
                                 Export Data
                             </h3>
 
@@ -142,6 +142,8 @@ const DangerZoneCard = () => {
                             font-medium
                             transition
                             hover:bg-slate-100
+                            dark:text-white
+                            dark:hover:bg-slate-700
                         "
                         onClick={() => {
                             setIsExportModalOpen(prev => !prev)
@@ -172,6 +174,7 @@ const DangerZoneCard = () => {
                         md:flex-row
                         md:items-center
                         md:justify-between
+                        dark:bg-red-800
                     "
                 >
 
@@ -193,11 +196,11 @@ const DangerZoneCard = () => {
 
                         <div>
 
-                            <h3 className="font-semibold text-red-700">
+                            <h3 className="font-semibold text-red-700 dark:text-red-300">
                                 Delete Account
                             </h3>
 
-                            <p className="text-sm text-red-600">
+                            <p className="text-sm text-red-600 dark:text-red-300">
                                 Permanently remove your account and all associated data.
                             </p>
 

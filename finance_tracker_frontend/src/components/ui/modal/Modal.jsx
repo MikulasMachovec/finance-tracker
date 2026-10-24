@@ -73,6 +73,8 @@ const Modal = ({
                     bg-white
                     shadow-2xl
                     mx-4
+                    dark:bg-slate-800
+                    dark:text-white
                     `}
             >
                 <div 
@@ -82,7 +84,7 @@ const Modal = ({
                     px-6 py-4                    
                     "
                 >
-                    <h2 className="text-lg font-semibold text-slate-800">
+                    <h2 className="text-lg font-semibold text-slate-800  dark:text-white">
                         {title}
                     </h2>
 
@@ -114,6 +116,7 @@ const Modal = ({
                             bg-slate-50
                             px-6 py-4
                             rounded-b-2xl
+                            dark:bg-slate-800
                         "
                     >
                         {footer}

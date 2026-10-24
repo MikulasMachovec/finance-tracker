@@ -23,7 +23,7 @@ const TransactionRow = ({
         >
             <div>
 
-                <p className="font-medium text-slate-800">
+                <p className="font-medium text-slate-800 dark:text-white">
                     {transaction.title}
                 </p>
 

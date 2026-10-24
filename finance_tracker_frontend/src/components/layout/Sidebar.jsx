@@ -5,6 +5,7 @@ import { useSession } from '../../context/sessionProvider';
 import { useNavigate } from 'react-router-dom';
 import useUserSetting from '../../hooks/useUserSetting';
 import toast from 'react-hot-toast';
+import { useTheme } from '../../context/themeContext';
 
 
 const Sidebar = ({collapsed, setCollapsed}) => {
@@ -12,6 +13,7 @@ const Sidebar = ({collapsed, setCollapsed}) => {
     const { logout } = useSession();
     const { user } = useUserSetting();
     const navigate = useNavigate
+    const {isDark, toggleTheme } = useTheme();
 
     const handleLogout = () => {
         logout();
@@ -32,6 +34,7 @@ const Sidebar = ({collapsed, setCollapsed}) => {
                 flex flex-col justify-between shadow-sm
                 transition-all duration-300
                 ${collapsed ? "w-20" : "w-56"}
+                dark:bg-slate-800
             `}
         >
         {/* Top */}
@@ -46,7 +49,7 @@ const Sidebar = ({collapsed, setCollapsed}) => {
                 </div>
 
                 {!collapsed && (
-                    <h1 className="text-xl font-bold">
+                    <h1 className="text-xl font-bold dark:text-white">
                         Finance Tracker
                     </h1>
                 )}
@@ -54,7 +57,10 @@ const Sidebar = ({collapsed, setCollapsed}) => {
 
             <button
                 onClick={() => setCollapsed(!collapsed)}
-                className="text-slate-500 hover:text-black"
+                className="
+                text-slate-500 hover:text-black
+                dark:text-slate-300 dark:hover:text-white
+                "
             >
                 {collapsed ? <FaChevronRight /> : <FaChevronLeft />}
             </button>
@@ -77,10 +83,10 @@ const Sidebar = ({collapsed, setCollapsed}) => {
         <div className="border-t border-gray-300 p-5">
             {/* Dark Mode */}
             <SidebarItem
-                title="Dark Mode"
+                title= {isDark ? "Light mode" : "Dark Mode"}
                 icon={FaMoon}
                 collapsed={collapsed}
-                onClick={() => console.log("Toggle dark mode")}
+                onClick={() => toggleTheme()}
             />
             <SidebarItem
                 title="Logout"
@@ -106,11 +112,11 @@ const Sidebar = ({collapsed, setCollapsed}) => {
                         />
 
                         <div>
-                            <p className="font-semibold">
+                            <p className="font-semibold dark:text-white">
                                 {user.firstName} {user.lastName}
                             </p>
 
-                            <p className="text-sm text-gray-500">
+                            <p className="text-sm text-gray-500 dark:text-gray-400">
                                 {user.email}
                             </p>
                         </div>

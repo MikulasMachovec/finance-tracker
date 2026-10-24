@@ -1,6 +1,7 @@
 import { usePreferences } from "../../context/preferencesContext";
 import { formatCurrency } from "../../utils/formatCurrency";
 import BackgroundCard from "../ui/BackgroundCard";
+import { useTheme } from "../../context/themeContext";
 
 import {
     ResponsiveContainer,
@@ -15,7 +16,12 @@ import {
 
 const IncomeExpenseChart = ( {monthlyFinance} ) => {
     const {preferences} = usePreferences();
+    const { isDark } = useTheme();
     
+    const textColor = isDark ? "#cbd5e1" : "#475569";
+    const gridColor = isDark ? "#475569" : "#e2e8f0";
+    const tooltipBackground = isDark ? "#1e293b" : "#ffffff";
+    const tooltipBorder = isDark ? "#475569" : "#e2e8f0";
     
     return(
         <BackgroundCard
@@ -28,17 +34,41 @@ const IncomeExpenseChart = ( {monthlyFinance} ) => {
             >
                 <LineChart data={monthlyFinance}>
 
-                    <CartesianGrid strokeDasharray="3 3" />
-
-                    <XAxis dataKey="month" />
-
-                    <YAxis />
-
-                    <Tooltip 
-                        formatter={(value,name) => [formatCurrency(value, preferences.currency), name]}
+                    <CartesianGrid 
+                        strokeDasharray="3 3" 
+                        stroke={gridColor}
                     />
 
-                    <Legend />
+                    <XAxis 
+                        dataKey="month" 
+                        tick={{fill: textColor}}
+                        axisLine={{ stroke: gridColor }}
+                        tickLine={{ stroke: gridColor }}
+                        />
+
+                    <YAxis 
+                        tick={{ fill: textColor }}
+                        axisLine={{ stroke: gridColor }}
+                        tickLine={{ stroke: gridColor }}
+                        />
+
+                    <Tooltip 
+                        contentStyle={{
+                            backgroundColor: tooltipBackground,
+                            border: `1px solid ${tooltipBorder}`,
+                            borderRadius: "8px",
+                            color: textColor,
+                        }}
+                        labelStyle={{ color: textColor }}
+                        formatter={(value,name) => [
+                            formatCurrency(value, preferences.currency), 
+                            name,
+                        ]}
+                    />
+
+                    <Legend 
+                        wrapperStyle={{ color: textColor }}
+                    />
 
                     <Line 
                         type="monotone"

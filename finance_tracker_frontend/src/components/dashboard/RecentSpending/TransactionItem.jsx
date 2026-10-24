@@ -11,11 +11,11 @@ const TransactionItem = ({ transaction }) => {
     return (
         <div className="flex items-center justify-between py-3">
             <div>
-                <p className="font-medium text-slate-800">
+                <p className="font-medium text-slate-800 dark:text-white">
                     {transaction.title}
                 </p>
 
-                <p className="text-sm text-slate-800">
+                <p className="text-sm text-slate-800 dark:text-white">
                     {transaction.categoryName} • {formatDate(transaction.transactionDate, preferences.dateFormat)}
                 </p>
 

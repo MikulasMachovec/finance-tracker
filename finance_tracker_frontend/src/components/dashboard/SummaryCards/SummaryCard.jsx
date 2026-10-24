@@ -6,7 +6,7 @@ const SummaryCard = ({
 }) => {
     return (
         <div className="
-        bg-white 
+        bg-white dark:bg-slate-800
         rounded-2xl 
         p-6 shadow-sm 
         border 
@@ -18,7 +18,7 @@ const SummaryCard = ({
         >
             {/* Top */}
             <div className="flex items-center justify-between">
-                <h3 className="text-slate-500 font-medium">
+                <h3 className="text-slate-500 font-medium dark:text-white">
                     {title}
                 </h3>
 
@@ -30,7 +30,7 @@ const SummaryCard = ({
 
             {/* Value */}
 
-            <h2 className="text-3xl font-bold text-slate-800 mt-6">
+            <h2 className="text-3xl font-bold text-slate-800 mt-6 dark:text-white">
                 {value}
             </h2>
 

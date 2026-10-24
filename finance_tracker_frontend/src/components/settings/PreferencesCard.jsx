@@ -47,7 +47,7 @@ const PreferencesCard = () => {
 
                 {/* Currency */}
                 <div>
-                    <label className="mb-2 block text-sm font-medium text-slate-700">
+                    <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-white">
                         Currency
                     </label>
 
@@ -63,6 +63,8 @@ const PreferencesCard = () => {
                             px-4 py-2
                             focus:border-blue-500
                             focus:outline-none
+                            dark:text-white
+                            dark:bg-slate-800
                         "
                     >
                         <option value="EUR">EUR (€)</option>
@@ -72,7 +74,7 @@ const PreferencesCard = () => {
 
                 {/* Date format */}
                 <div>
-                    <label className="mb-2 block text-sm font-medium text-slate-700">
+                    <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-white">
                         Date Format
                     </label>
 
@@ -88,6 +90,8 @@ const PreferencesCard = () => {
                             px-4 py-2
                             focus:border-blue-500
                             focus:outline-none
+                            dark:text-white
+                            dark:bg-slate-800
                         "
                     >
                         <option value="dd/MM/yyyy">

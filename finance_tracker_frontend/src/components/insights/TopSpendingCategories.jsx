@@ -10,9 +10,9 @@ const TopSpendingCategories = ({ categories }) => {
     )
 
     return (
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:bg-slate-800">
 
-            <h2 className="text-lg font-semibold text-slate-800">
+            <h2 className="text-lg font-semibold text-slate-800 dark:text-white">
                 Top Spending Categories
             </h2>
 
@@ -27,7 +27,7 @@ const TopSpendingCategories = ({ categories }) => {
 
                     return (
 
-                        <div key={category.category}>
+                        <div key={category.categoryName}>
 
                             <div className="mb-2 flex justify-between">
 
@@ -41,7 +41,7 @@ const TopSpendingCategories = ({ categories }) => {
                                         }}
                                     />
 
-                                    <span className="font-medium">
+                                    <span className="font-medium dark:text-white">
                                         {category.categoryName}
                                     </span>
 
@@ -49,11 +49,11 @@ const TopSpendingCategories = ({ categories }) => {
 
                                 <div className="text-right">
 
-                                    <p className="font-semibold">
+                                    <p className="font-semibold dark:text-white">
                                         {formatCurrency(category.amount, preferences.currency)}
                                     </p>
 
-                                    <p className="text-xs text-slate-500">
+                                    <p className="text-xs text-slate-500 dark:text-slate-300">
                                         {percentage.toFixed(1)}%
                                     </p>
 

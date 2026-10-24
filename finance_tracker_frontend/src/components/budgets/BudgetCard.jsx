@@ -30,7 +30,7 @@ const BudgetCard = ({
             className="
                 rounded-2xl
                 border border-slate-200
-                bg-white
+                bg-white dark:bg-slate-800
                 p-5
                 shadow-sm
             "
@@ -49,11 +49,11 @@ const BudgetCard = ({
                     />
 
                     <div>
-                        <h3 className="font-semibold text-slate-800">
+                        <h3 className="font-semibold text-slate-800 dark:text-white">
                             {budget.categoryName}
                         </h3>
 
-                        <p className="text-sm text-slate-500">
+                        <p className="text-sm text-slate-500 dark:text-white">
                             Monthly budget
                         </p>
                     </div>
@@ -73,11 +73,11 @@ const BudgetCard = ({
             <div className="mt-6 flex items-end justify-between">
 
                 <div>
-                    <p className="text-2xl font-bold text-slate-800">
+                    <p className="text-2xl font-bold text-slate-800 dark:text-white">
                         {formatCurrency(budget.spentAmount ?? 0, preferences.currency)}
                     </p>
 
-                    <p className="text-sm text-slate-500">
+                    <p className="text-sm text-slate-500 dark:text-white">
                         of {formatCurrency(budget.limitAmount ?? 0, preferences.currency)}
                     </p>
                 </div>
@@ -94,7 +94,7 @@ const BudgetCard = ({
                         {percentage.toFixed(0)}%
                     </p>
 
-                    <p className="text-sm text-slate-500">
+                    <p className="text-sm text-slate-500 dark:text-white">
                         {remaining >= 0
                             ? `${formatCurrency(remaining, preferences.currency)} left`
                             : `${formatCurrency(Math.abs(remaining), preferences.currency)} over`

@@ -229,7 +229,7 @@ const Categories = () => {
             >
                 <div className="space-y-4">
 
-                    <p className="text-slate-700">
+                    <p className="text-slate-700 dark:text-white">
                         Are you sure you want to delete this category?
                     </p>
 
@@ -240,6 +240,7 @@ const Categories = () => {
                                 border border-slate-200
                                 bg-slate-50
                                 p-4
+                                dark:bg-slate-800
                             "
                         >
                             <div className="flex items-center gap-3">

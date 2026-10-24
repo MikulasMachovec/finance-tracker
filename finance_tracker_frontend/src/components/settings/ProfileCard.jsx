@@ -66,11 +66,11 @@ const ProfileCard = ({
                     </div>
 
                     <div>
-                        <h3 className="text-lg font-semibold text-slate-800">
+                        <h3 className="text-lg font-semibold text-slate-800 dark:text-white">
                             {user.firstName} {user.lastName}
                         </h3>
 
-                        <p className="text-sm text-slate-500">
+                        <p className="text-sm text-slate-500 dark:text-slate-400">
                             {user.email}
                         </p>
 
@@ -83,7 +83,18 @@ const ProfileCard = ({
                 </div>
 
                 <button
-                    className="rounded-xl border border-slate-300 px-5 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                    className="
+                        rounded-xl border 
+                        border-slate-300 
+                        px-5 py-2.5 
+                        text-sm 
+                        font-medium 
+                        text-slate-700 
+                        transition 
+                        hover:bg-slate-100 
+                        dark:text-white
+                        dark:hover:bg-slate-700
+                        "
                     onClick={()=> setShowRenameModal(prev => !prev)}
                 >
                     Edit Profile

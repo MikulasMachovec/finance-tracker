@@ -60,14 +60,17 @@ const CategoryBreakdownChart = ({ categoryBreakdown }) => {
                         flex items-center gap-2
                         rounded-full
                         border border-slate-200
-                        bg-white
+                        bg-white 
                         px-5 py-2
-                        text-sm font-medium text-slate-600
+                        text-sm font-medium text-slate-600 
                         shadow-sm
                         transition-all duration-200
-                        hover:border-slate-300
-                        hover:bg-slate-50
+                        hover:border-slate-300 
+                        hover:bg-slate-50 
                         hover:shadow
+                        dark:bg-slate-800 dark:text-white
+                        dark:hover:border-slate-700
+                        dark:hover:bg-slate-700
                     "
                 >
                     {showLegend ? "▲ Hide details" : "▼ Show details"}
@@ -86,6 +89,8 @@ const CategoryBreakdownChart = ({ categoryBreakdown }) => {
                             bg-white
                             p-4
                             shadow-xl
+                            dark:bg-slate-800
+                            dark:text-white
                         "
                     >
                         

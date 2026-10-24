@@ -26,6 +26,7 @@ const TransactionFilter = ({
                 bg-white
                 p-5
                 space-y-4
+                dark:bg-slate-800
             "
         >
             {/* Search */}
@@ -37,6 +38,7 @@ const TransactionFilter = ({
                     top-1/2
                     -translate-y-1/2
                     text-slate-400
+                    dark:text-white
                     "
                 />
 
@@ -51,6 +53,7 @@ const TransactionFilter = ({
                         py-2 pl-10 pr-4
                         outline-none
                         focus:border-blue-500
+                        dark:text-white
                     "
                 />
             </div>
@@ -74,6 +77,8 @@ const TransactionFilter = ({
                         border border-slate-200
                         px-4 py-2
                         text-slate-600
+                        dark:text-white
+                        dark:bg-slate-800
                     "
                 >
                     <option value="all">
@@ -102,6 +107,8 @@ const TransactionFilter = ({
                         px-4
                         py-2
                         text-slate-600
+                        dark:text-white
+                        dark:bg-slate-800
                     "
                 >
 
@@ -128,7 +135,9 @@ const TransactionFilter = ({
                         border-slate-200
                         px-4
                         py-2
-                        text-slate-600"
+                        text-slate-600
+                        dark:text-white
+                        dark:bg-slate-800"
                 >
                     <option value="newest">Newest first</option>
                     <option value="oldest">Oldest first</option>

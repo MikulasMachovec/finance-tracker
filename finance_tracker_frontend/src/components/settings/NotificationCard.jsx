@@ -56,16 +56,17 @@ const NotificationCard = () => {
                             border
                             border-slate-200
                             p-4
+                            
                         "
                     >
 
                         <div>
 
-                            <h3 className="font-medium text-slate-800">
+                            <h3 className="font-medium text-slate-800 dark:text-white">
                                 {option.title}
                             </h3>
 
-                            <p className="mt-1 text-sm text-slate-500">
+                            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                                 {option.description}
                             </p>
 

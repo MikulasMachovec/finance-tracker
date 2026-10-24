@@ -9,7 +9,7 @@ const BudgetFilter = ({
             className="
                 rounded-2xl
                 border border-slate-200
-                bg-white
+                bg-white dark:bg-slate-800
                 p-5
             "
         >
@@ -20,7 +20,7 @@ const BudgetFilter = ({
                         left-3
                         top-1/2
                         -translate-y-1/2
-                        text-slate-400
+                        text-slate-400 dark:text-white
                     "
                 />
 
@@ -37,6 +37,7 @@ const BudgetFilter = ({
                         pr-4
                         outline-none
                         focus:border-blue-500
+                        dark:text-white
                     "
                 />
 

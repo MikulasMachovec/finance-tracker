@@ -66,11 +66,11 @@ const SecurityCard = () => {
 
                         <div>
 
-                            <h3 className="font-medium text-slate-800">
+                            <h3 className="font-medium text-slate-800 dark:text-white">
                                 Password
                             </h3>
 
-                            <p className="text-sm text-slate-500">
+                            <p className="text-sm text-slate-500 dark:text-slate-400">
                                 ••••••••••••
                             </p>
 
@@ -86,6 +86,8 @@ const SecurityCard = () => {
                             text-sm font-medium
                             transition-colors
                             hover:bg-slate-100
+                            dark:text-white
+                            dark:hover:bg-slate-700
                         "
                         onClick={() => setShowChangePasswordModal(prev => !prev)}
                     >
@@ -125,11 +127,11 @@ const SecurityCard = () => {
 
                         <div>
 
-                            <h3 className="font-medium text-slate-800">
+                            <h3 className="font-medium text-slate-800 dark:text-white">
                                 Two-Factor Authentication
                             </h3>
 
-                            <p className="text-sm text-slate-500">
+                            <p className="text-sm text-slate-500 dark:text-slate-400">
                                 Add an extra layer of protection.
                             </p>
 
@@ -146,6 +148,8 @@ const SecurityCard = () => {
                             px-5 py-2.5
                             text-sm font-medium
                             text-slate-500
+                            dark:bg-slate-700
+                            dark:text-slate-500
                         "
                     >
                         Coming Soon

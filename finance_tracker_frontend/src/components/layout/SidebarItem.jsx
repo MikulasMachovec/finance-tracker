@@ -10,10 +10,14 @@ const SidebarItem = ({
     const baseClass =
         `flex items-center rounded-xl transition-all duration-200
         ${collapsed ? "justify-center px-3" : "gap-3 px-4"}
-        py-3`;
+        py-3
+        dark:text-white
+        `;
         
     const hoverClass =
-        "text-gray-600 hover:bg-gray-100 hover:text-black";
+        `text-gray-600 hover:bg-gray-100 hover:text-black
+        dark:hover:bg-gray-400
+        `;
 
     if (path) {
         return (
@@ -22,7 +26,7 @@ const SidebarItem = ({
                 className={({ isActive }) =>
                     `${baseClass} ${
                     isActive
-                        ? "bg-blue-50 text-blue-600 font-semibold"
+                        ? "bg-blue-50 text-blue-600 font-semibold dark:bg-blue-600"
                         : hoverClass
                     }`
                 }

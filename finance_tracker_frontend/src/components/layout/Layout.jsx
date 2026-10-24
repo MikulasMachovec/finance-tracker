@@ -23,6 +23,7 @@ const Layout = () => {
                     transition-all 
                     duration-300
                     ${collapsed ? "ml-20" : "ml-56"}
+                    dark:bg-slate-800
                 `}
             >
 

@@ -105,7 +105,7 @@ const BudgetForm = ({
             {/* Category */}
             <div>
 
-                <label className="mb-1 block text-sm font-medium text-slate-700">
+                <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-white">
                     Category
                 </label>
 
@@ -155,7 +155,7 @@ const BudgetForm = ({
             {/* Limit */}
             <div>
 
-                <label className="mb-1 block text-sm font-medium text-slate-700">
+                <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-white">
                     Monthly limit (€)
                 </label>
 
@@ -190,7 +190,7 @@ const BudgetForm = ({
             {/* Description */}
             <div>
 
-                <label className="mb-1 block text-sm font-medium text-slate-700">
+                <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-white">
                     Description
                 </label>
 

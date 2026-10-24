@@ -8,7 +8,7 @@ const SpendingInsights = () => {
             title="Spending Insights"
             subtitle="Personalized observations"
         >
-            <div className="divide-y divide-slate-100">
+            <div className="divide-y divide-slate-100 dark:divide-slate-600">
                 {spendingInsights.map(insight => (
                     <InsightItem
                         key={insight.id}

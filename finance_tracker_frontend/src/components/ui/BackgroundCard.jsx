@@ -11,14 +11,15 @@ const BackgroundCard = ({
             shadow-sm 
             p-6 
             mt-2
+            dark:bg-slate-800
             `}>
             <div className="mb-2">
-                <h2 className="text-lg font-semibold text-slate-800">
+                <h2 className="text-lg font-semibold text-slate-800 dark:text-white">
                     {title}
                 </h2>
 
                 {subtitle && (
-                    <p className="text-sm text-slate-500 mt-1">
+                    <p className="text-sm text-slate-500 mt-1 dark:text-white">
                         {subtitle}
                     </p>
                 )}
