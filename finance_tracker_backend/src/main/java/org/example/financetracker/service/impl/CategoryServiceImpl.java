@@ -10,10 +10,13 @@ import org.example.financetracker.entity.UserEntity;
 import org.example.financetracker.enums.TransactionType;
 import org.example.financetracker.exception.ResourceNotFoundException;
 import org.example.financetracker.mapper.CategoryMapper;
+import org.example.financetracker.repository.BudgetRepository;
 import org.example.financetracker.repository.CategoryRepository;
+import org.example.financetracker.repository.TransactionRepository;
 import org.example.financetracker.service.interfaces.AuthenticationService;
 import org.example.financetracker.service.interfaces.CategoryService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -26,6 +29,8 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
     private final AuthenticationService  authenticationService;
+    private final TransactionRepository transactionRepository;
+    private final BudgetRepository budgetRepository;
 
     private CategoryEntity getCategory(
             Long categoryId,
@@ -139,9 +144,38 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public void deleteCategory(Long categoryId) {
         UserEntity owner = authenticationService.getCurrentUser();
         CategoryEntity category = getCategory(categoryId, owner);
+
+        CategoryEntity uncategorized =
+                categoryRepository.findByOwnerAndNameIgnoreCase(
+                        owner, "Uncategorized"
+                ).orElseGet(() -> {
+                    CategoryEntity newCategory = new CategoryEntity();
+                    newCategory.setOwner(owner);
+                    newCategory.setName("Uncategorized");
+                    newCategory.setColor("#999999");
+                    return categoryRepository.save(newCategory);
+                });
+
+        if (category.getCategoryId().equals(uncategorized.getCategoryId())) {
+            throw new IllegalArgumentException(
+                    "The Uncategorized category cannot be deleted."
+            );
+        }
+
+        // Reassign transactions and budgets here before deleting.
+        transactionRepository.reassignCategory(
+                category.getCategoryId(),
+                uncategorized.getCategoryId(),
+                owner.getUserId()
+        );
+
+        budgetRepository.deleteByCategory_CategoryIdAndOwner(
+                category.getCategoryId(), owner
+        );
 
         categoryRepository.delete(category);
     }

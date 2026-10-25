@@ -15,10 +15,11 @@ const EmptyState = ({
             bg-white
             py-16
             text-center
+            dark:bg-slate-800
         ">
             <Icon className="mb-5 text-5xl text-slate-300" />
 
-            <h3 className="text-xl font-semibold text-slate-800">
+            <h3 className="text-xl font-semibold text-slate-800 dark:text-white">
                 {title}
             </h3>
 

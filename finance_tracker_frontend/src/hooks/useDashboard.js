@@ -38,7 +38,7 @@ export default function useDashboard( refreshKey ){
 
     useEffect(() => {
         refreshDashboard();
-		console.log("refresh " + refreshKey)
+		console.log("refresh Dashboard " + refreshKey)
     },[ refreshDashboard, refreshKey])
 
 

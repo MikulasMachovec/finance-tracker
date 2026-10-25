@@ -69,13 +69,22 @@ const Categories = () => {
     };
 
     const handleConfirmDelete = async () => {
-        await removeCategory(selectedCategory.id)
+        if(!selectedCategory?.categoryId){
+            toast.error("Cannot delete category: missing category ID")
+            return
+        }
+        try {
+            await removeCategory(selectedCategory.categoryId)
     
-        setShowDeleteModal(false);
-        setSelectedCategory(null);
-        toast.success(
-            "Category deleted"
-        );
+            setShowDeleteModal(false);
+            setSelectedCategory(null);
+            toast.success("Category deleted");
+            
+        } catch (error) {
+            toast.error("Failed to delete category");
+            console.error("Error deleting category:", error);
+        }
+        
     };
 
     if(loading) {
@@ -99,7 +108,7 @@ const Categories = () => {
                     setSearch={setSearch}
                 />
                 
-                {!loading & categories.length === 0 ? (
+                {!loading && categories.length === 0 ? (
                     
                     <EmptyState
                     title="No categories yet"
@@ -212,7 +221,7 @@ const Categories = () => {
                                 setShowDeleteModal(false);
                                 setSelectedCategory(null);
                             }}
-                            variant="scondary"
+                            variant="secondary"
                         >
                             Cancel
                         </Button>
@@ -230,7 +239,7 @@ const Categories = () => {
                 <div className="space-y-4">
 
                     <p className="text-slate-700 dark:text-white">
-                        Are you sure you want to delete this category?
+                        <b>Are you sure you want to delete this category?</b> <br /> It will also category budget.
                     </p>
 
                     {selectedCategory && (

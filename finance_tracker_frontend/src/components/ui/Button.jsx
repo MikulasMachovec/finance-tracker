@@ -3,7 +3,7 @@ const variants = {
         "bg-blue-600 text-white hover:bg-blue-700",
 
     secondary:
-        "border border-slate-300 text-slate-700 hover:bg-slate-100",
+        "border border-slate-300 text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600",
 
     danger:
         "bg-red-600 text-white hover:bg-red-700",

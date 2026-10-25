@@ -106,11 +106,24 @@ public class TransactionServiceImpl implements TransactionService {
         TransactionEntity transaction =
                 getTransaction(transactionId, owner);
 
-        CategoryEntity category =
-                getCategory(transactionRequest.getCategoryId(), owner);
-
         transactionMapper.updateEntity(transactionRequest, transaction);
-        transaction.setCategory(category);
+
+        if (transactionRequest.getType() == TransactionType.EXPENSE) {
+            if (transactionRequest.getCategoryId() == null) {
+                throw new IllegalArgumentException(
+                        "Expense transaction must have a category."
+                );
+            }
+
+            CategoryEntity category =
+                    getCategory(transactionRequest.getCategoryId(), owner);
+
+            transaction.setCategory(category);
+
+        } else {
+            // Income transactions must not have a category.
+            transaction.setCategory(null);
+        }
 
         TransactionEntity updatedTransaction =
                 transactionRepository.save(transaction);

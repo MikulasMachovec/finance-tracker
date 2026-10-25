@@ -79,18 +79,28 @@ const TransactionForm = ({
 
     };
 
-    useEffect(()=> {
+    useEffect(() => {
         setFormData({
-            title: initialData.title || "",
-            amount: initialData.amount || "",
-            categoryId: initialData.categoryId || "",
-            type: initialData.type || TRANSACTION_TYPES.EXPENSE,
+            title: initialData.title ?? "",
+            amount: initialData.amount ?? "",
+            categoryId: initialData.categoryId ?? "",
+            type: initialData.type ?? TRANSACTION_TYPES.EXPENSE,
             transactionDate:
-                initialData.date ||
+                initialData.transactionDate ??
                 new Date().toISOString().split("T")[0],
-            description: initialData.description || "",
-        })
-    }, [initialData.id])
+            description: initialData.description ?? "",
+        });
+    
+        setErrors({});
+    }, [
+        initialData.transactionId,
+        initialData.title,
+        initialData.amount,
+        initialData.categoryId,
+        initialData.type,
+        initialData.transactionDate,
+        initialData.description,
+    ]);
 
     return (
         <form
@@ -179,6 +189,7 @@ const TransactionForm = ({
                             border-slate-300
                             px-4
                             py-2
+                            dark:bg-slate-800
                         "
                     >
                         <option value={TRANSACTION_TYPES.EXPENSE}>Expense</option>
@@ -203,17 +214,22 @@ const TransactionForm = ({
                             border-slate-300
                             px-4
                             py-2
+                            dark:bg-slate-800
                         "
                     >
                         <option value="">Select category</option>
-                        {categories.map((category) => (
-                            <option
-                                key={category.categoryId}
-                                value={category.categoryId}
-                            >
-                                {category.name}
-                            </option>
-                        ))}
+                        {categories
+                            .filter(category =>
+                                category.name.toLowerCase() !== "uncategorized"
+                            )
+                            .map((category) => (
+                                <option
+                                    key={category.categoryId}
+                                    value={category.categoryId}
+                                >
+                                    {category.name}
+                                </option>
+                            ))}
                     </select>
 
                     {errors.category && (

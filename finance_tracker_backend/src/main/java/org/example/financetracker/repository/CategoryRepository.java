@@ -22,4 +22,10 @@ public interface CategoryRepository
             Long categoryId,
             UserEntity owner
     );
+
+    Optional<CategoryEntity> findByOwnerAndNameIgnoreCase(
+            UserEntity owner,
+            String name
+    );
+
 }

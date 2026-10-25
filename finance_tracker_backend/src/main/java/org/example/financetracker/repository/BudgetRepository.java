@@ -55,4 +55,6 @@ public interface BudgetRepository
             @Param("year") Integer year,
             @Param("month") Integer month
     );
+
+    void deleteByCategory_CategoryIdAndOwner(Long categoryId, UserEntity owner);
 }

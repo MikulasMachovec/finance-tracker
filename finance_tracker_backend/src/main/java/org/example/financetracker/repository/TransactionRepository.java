@@ -7,7 +7,9 @@ import org.example.financetracker.enums.TransactionType;
 import org.example.financetracker.projection.CategoryBreakdownProjection;
 import org.example.financetracker.projection.MonthlyFinanceProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -111,6 +113,24 @@ public interface TransactionRepository
             TransactionType type,
             LocalDate startDate,
             LocalDate endDate
+    );
+
+    @Modifying
+    @Query("""
+    UPDATE TransactionEntity t
+    SET t.category = (
+        SELECT c
+        FROM CategoryEntity c
+        WHERE c.categoryId = :newCategoryId
+          AND c.owner.userId = :userId
+    )
+    WHERE t.category.categoryId = :oldCategoryId
+      AND t.owner.userId = :userId
+    """)
+    int reassignCategory(
+            @Param("oldCategoryId") Long oldCategoryId,
+            @Param("newCategoryId") Long newCategoryId,
+            @Param("userId") Long userId
     );
 
 }
