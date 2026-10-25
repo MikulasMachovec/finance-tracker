@@ -47,6 +47,9 @@ public class BudgetEntity {
     @JoinColumn(name = "category_id", nullable = false)
     private CategoryEntity category;
 
+    @Column(nullable = false)
+    private boolean recurring = false;
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 

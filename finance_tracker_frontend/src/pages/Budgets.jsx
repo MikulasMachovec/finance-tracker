@@ -32,13 +32,18 @@ const Budgets = () => {
 
      const handleAddBudget = async (budget) => {
         
+        try {
+            await addBudget(budget);
 
-        await addBudget(budget);
-
-        setShowAddModal(false);
-        toast.success(
-            "Budget created successfully"
-        );
+            setShowAddModal(false);
+            toast.success(
+                "Budget created successfully"
+            );
+        } catch (error) {
+            console.log(error);
+            toast.error("Budget already exists.")
+        }
+        
     };
 
     // EDIT

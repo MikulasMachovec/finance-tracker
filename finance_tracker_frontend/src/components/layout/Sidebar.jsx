@@ -20,7 +20,7 @@ const Sidebar = ({collapsed, setCollapsed}) => {
 
         toast.success("Logged out successfully");
 
-        navigate("/login");
+        navigate("/");
     };
 
     if(!user){

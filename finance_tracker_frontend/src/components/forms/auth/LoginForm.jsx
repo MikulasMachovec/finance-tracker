@@ -86,7 +86,7 @@ const LoginForm = () => {
 
             <div>
 
-                <label className="mb-1 block text-sm font-medium text-slate-700">
+                <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">
                     Email
                 </label>
 
@@ -104,6 +104,7 @@ const LoginForm = () => {
                         py-2
                         focus:border-blue-500
                         focus:outline-none
+                        dark:text-white
                     "
                 />
 
@@ -119,7 +120,7 @@ const LoginForm = () => {
 
             <div>
 
-                <label className="mb-1 block text-sm font-medium text-slate-700">
+                <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">
                     Password
                 </label>
 
@@ -137,6 +138,7 @@ const LoginForm = () => {
                         py-2
                         focus:border-blue-500
                         focus:outline-none
+                        dark:text-white
                     "
                 />
 

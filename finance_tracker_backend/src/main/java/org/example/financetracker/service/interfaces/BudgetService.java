@@ -18,4 +18,6 @@ public interface BudgetService {
     void deleteBudget(Long id);
 
     void createMissingBudgetsForCurrentMonth();
+
+    void createMissingBudgetsForAllUsers();
 }

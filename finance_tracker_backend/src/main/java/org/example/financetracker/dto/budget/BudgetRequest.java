@@ -25,4 +25,6 @@ public class BudgetRequest {
     private Integer year;
 
     private String description;
+
+    private boolean recurring = false;
 }

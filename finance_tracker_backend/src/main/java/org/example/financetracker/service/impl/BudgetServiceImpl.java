@@ -13,6 +13,7 @@ import org.example.financetracker.mapper.BudgetMapper;
 import org.example.financetracker.repository.BudgetRepository;
 import org.example.financetracker.repository.CategoryRepository;
 import org.example.financetracker.repository.TransactionRepository;
+import org.example.financetracker.repository.UserRepository;
 import org.example.financetracker.service.interfaces.AuthenticationService;
 import org.example.financetracker.service.interfaces.BudgetService;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,10 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +35,7 @@ public class BudgetServiceImpl implements BudgetService {
     private final AuthenticationService authenticationService;
     private final CategoryRepository categoryRepository;
     private final TransactionRepository transactionRepository;
+    private final UserRepository userRepository;
 
 //    Helper function
     private BudgetEntity getBudget(Long budgetId, UserEntity owner) {
@@ -172,51 +177,68 @@ public class BudgetServiceImpl implements BudgetService {
     @Override
     public void createMissingBudgetsForCurrentMonth() {
         UserEntity owner = authenticationService.getCurrentUser();
-        LocalDate now = LocalDate.now();
+        generateMissingBudgets(owner);
+    }
 
-        int currentYear = now.getYear();
-        int currentMonth = now.getMonthValue();
+    @Override
+    public void createMissingBudgetsForAllUsers() {
+        userRepository.findAll().forEach(this::generateMissingBudgets);
+    }
 
-        LocalDate previousDate = now.minusMonths(1);
-
-        int previousYear = previousDate.getYear();
-        int previousMonth = previousDate.getMonthValue();
+    private void generateMissingBudgets(UserEntity owner) {
+        YearMonth currentMonth = YearMonth.now();
 
         List<BudgetEntity> previousBudgets =
-                budgetRepository.findByOwnerAndYearAndMonth(
+                budgetRepository.findBudgetsBeforeMonth(
                         owner,
-                        previousYear,
-                        previousMonth
+                        currentMonth.getYear(),
+                        currentMonth.getMonthValue()
                 );
+        Set<Long> processedCategories = new HashSet<>();
 
-        for (BudgetEntity previousBudget : previousBudgets) {
-
+        for (BudgetEntity sourceBudget : previousBudgets) {
             Long categoryId =
-                    previousBudget.getCategory().getCategoryId();
+                    sourceBudget.getCategory().getCategoryId();
 
-            boolean currentBudgetExists =
-                    budgetRepository
-                            .findByOwnerAndCategory_CategoryIdAndYearAndMonth(
-                                    owner,
-                                    categoryId,
-                                    currentYear,
-                                    currentMonth
-                            )
-                            .isPresent();
-            if (!currentBudgetExists) {
+            if (!processedCategories.add(categoryId)) {
+                continue;
+            }
 
+            if (!sourceBudget.isRecurring()){
+                continue;
+            }
+
+            YearMonth sourceMonth = YearMonth.of(
+                    sourceBudget.getYear(),
+                    sourceBudget.getMonth()
+            );
+
+            for (
+                    YearMonth month = sourceMonth.plusMonths(1);
+                    !month.isAfter(currentMonth);
+                    month = month.plusMonths(1)
+            ) {
+                boolean budgetExists = budgetRepository
+                        .findByOwnerAndCategory_CategoryIdAndYearAndMonth(
+                                owner,
+                                categoryId,
+                                month.getYear(),
+                                month.getMonthValue()
+                        )
+                        .isPresent();
+
+                if (budgetExists) {
+                    continue;
+                }
                 BudgetEntity newBudget = new BudgetEntity();
 
                 newBudget.setOwner(owner);
-                newBudget.setCategory(previousBudget.getCategory());
-                newBudget.setLimitAmount(
-                        previousBudget.getLimitAmount()
-                );
-                newBudget.setDescription(
-                        previousBudget.getDescription()
-                );
-                newBudget.setYear(currentYear);
-                newBudget.setMonth(currentMonth);
+                newBudget.setCategory(sourceBudget.getCategory());
+                newBudget.setLimitAmount(sourceBudget.getLimitAmount());
+                newBudget.setDescription(sourceBudget.getDescription());
+                newBudget.setRecurring(true);
+                newBudget.setYear(month.getYear());
+                newBudget.setMonth(month.getMonthValue());
 
                 budgetRepository.save(newBudget);
             }

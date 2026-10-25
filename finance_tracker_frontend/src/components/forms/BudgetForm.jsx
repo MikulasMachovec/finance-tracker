@@ -16,6 +16,7 @@ const BudgetForm = ({
         category: "",
         limitAmount: "",
         description: "",
+        recurring: false
     });
 
     const [errors, setErrors] = useState({});
@@ -26,6 +27,7 @@ const BudgetForm = ({
             categoryId: initialData.categoryId || "",
             limitAmount: initialData.limitAmount || "",
             description: initialData.description || "",
+            recurring: initialData.recurring || false,
         });
 
         setErrors({});
@@ -121,6 +123,7 @@ const BudgetForm = ({
                         border-slate-300
                         px-4
                         py-2
+                        dark:bg-slate-800
                     "
                 >
 
@@ -151,41 +154,66 @@ const BudgetForm = ({
 
             </div>
 
+            <div className="grid grid-cols-2 gap-4">
+                {/* Limit */}
+                <div>
 
-            {/* Limit */}
-            <div>
-
-                <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-white">
-                    Monthly limit (€)
-                </label>
-
-
-                <input
-                    type="number"
-                    name="limitAmount"
-                    min="0"
-                    step="0.01"
-                    value={formData.limitAmount}
-                    onChange={handleChange}
-                    className="
-                        w-full
-                        rounded-xl
-                        border
-                        border-slate-300
-                        px-4
-                        py-2
-                    "
-                />
+                    <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-white">
+                        Monthly limit (€)
+                    </label>
 
 
-                {errors.limitAmount && (
-                    <p className="mt-1 text-sm text-red-500">
-                        {errors.limitAmount}
-                    </p>
-                )}
+                    <input
+                        type="number"
+                        name="limitAmount"
+                        min="0"
+                        step="0.01"
+                        value={formData.limitAmount}
+                        onChange={handleChange}
+                        className="
+                            w-full
+                            rounded-xl
+                            border
+                            border-slate-300
+                            px-4
+                            py-2
+                        "
+                    />
+
+
+                    {errors.limitAmount && (
+                        <p className="mt-1 text-sm text-red-500">
+                            {errors.limitAmount}
+                        </p>
+                    )}
+
+                </div>
+
+                {/* Monthly recuring */}
+                <div className="flex flex-col items-center">
+                    <label
+                        htmlFor="recurring"
+                        className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300"
+                    >
+                        Monthly recurring?
+                    </label>
+
+                        <input
+                            id="recurring"
+                            type="checkbox"
+                            name="recurring"
+                            checked={formData.recurring}
+                            onChange={(e) => {
+                                setFormData(prev => ({
+                                    ...prev,
+                                    recurring: e.target.checked,
+                                }));
+                            }}
+                            className="h-4 w-4 rounded accent-blue-600"
+                        />
+                    </div>
 
             </div>
-
 
             {/* Description */}
             <div>
@@ -212,7 +240,6 @@ const BudgetForm = ({
                 />
 
             </div>
-
 
         </form>
     );

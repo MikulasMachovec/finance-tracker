@@ -24,4 +24,5 @@ public class BudgetResponse {
     private Integer year;
 
     private String description;
+    private boolean recurring;
 }

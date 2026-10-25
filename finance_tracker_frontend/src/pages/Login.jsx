@@ -20,6 +20,7 @@ const Login = () => {
                 justify-center
                 bg-slate-50
                 px-4
+                dark:bg-slate-700
             "
         >
             <BackgroundCard
@@ -31,7 +32,7 @@ const Login = () => {
                     <LoginForm />
                 </div>
 
-                <p className="mt-6 text-center text-sm text-slate-500">
+                <p className="mt-6 text-center text-sm text-slate-500 dark:text-slate-200">
                     Don't have an account?{" "}
                     <Link
                         to="/register"
