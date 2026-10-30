@@ -125,6 +125,18 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryResponse createCategory(CategoryRequest request) {
 
         UserEntity owner = authenticationService.getCurrentUser();
+
+        if (request.getName() == null ||
+                request.getName().isEmpty()) {
+            throw new IllegalArgumentException("Category name is required.");
+        }
+
+        if ("uncategorized".equalsIgnoreCase(request.getName().trim())) {
+            throw new IllegalArgumentException(
+                    "The Uncategorized category name is reserved."
+            );
+        }
+        
         CategoryEntity category = categoryMapper.toEntity(request);
         category.setOwner(owner);
 

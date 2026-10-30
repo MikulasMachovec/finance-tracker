@@ -87,6 +87,12 @@ public class TransactionServiceImpl implements TransactionService {
 
             CategoryEntity category = getCategory(transactionRequest.getCategoryId(), owner);
 
+            if ("Uncategorized".equalsIgnoreCase(category.getName())) {
+                throw new IllegalArgumentException(
+                        "Uncategorized category cannot be assigned to transactions."
+                );
+            }
+
             transaction.setCategory(category);
 
         } else {
@@ -117,6 +123,12 @@ public class TransactionServiceImpl implements TransactionService {
 
             CategoryEntity category =
                     getCategory(transactionRequest.getCategoryId(), owner);
+
+            if ("Uncategorized".equalsIgnoreCase(category.getName())) {
+                throw new IllegalArgumentException(
+                        "Uncategorized category cannot be assigned to transactions."
+                );
+            }
 
             transaction.setCategory(category);
 

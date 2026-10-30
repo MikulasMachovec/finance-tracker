@@ -44,9 +44,12 @@ const CategoryForm = ({
         e.preventDefault();
 
         const validationErrors = {};
+        const categoryName = formData.name.trim()
 
-        if (!formData.name.trim()) {
+        if (!categoryName) {
             validationErrors.name = "Category name is required.";
+        } else if (categoryName.toLowerCase() === "uncategorized") {
+            validationErrors.name = "Please use another name for category.";
         }
 
         if (Object.keys(validationErrors).length) {
