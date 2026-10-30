@@ -18,6 +18,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -191,6 +193,100 @@ class TransactionServiceIsolationTest {
                     .save(any(TransactionEntity.class));
     }
 
+    @Test
+    void shouldUpdateOwnTransaction(){
+//        Arrange
+        Long transactionId  = 100L;
+        TransactionEntity existingTransaction = new TransactionEntity();
+        existingTransaction.setTitle("Old title");
+        existingTransaction.setAmount(new BigDecimal("10.00"));
+        existingTransaction.setType(TransactionType.INCOME);
+        existingTransaction.setTransactionDate(LocalDate.of(2026, 10, 1));
+        existingTransaction.setOwner(userA);
+
+        TransactionRequest request = new TransactionRequest();
+        request.setTitle("Updated title");
+        request.setAmount(new BigDecimal("25.50"));
+        request.setType(TransactionType.INCOME);
+        request.setTransactionDate(LocalDate.of(2026, 10, 15));
+
+        TransactionResponse expectedResponse = mock(TransactionResponse.class);
+
+        when(transactionRepository.findByTransactionIdAndOwner(transactionId, userA))
+                .thenReturn(Optional.of(existingTransaction));
+
+//        Simulate the mapper updating only the requested fields.
+        doAnswer(invocation -> {
+            TransactionRequest req = invocation.getArgument(0);
+            TransactionEntity entity = invocation.getArgument(1);
+
+            entity.setTitle(req.getTitle());
+            entity.setAmount(req.getAmount());
+            entity.setType(req.getType());
+            entity.setTransactionDate(req.getTransactionDate());
+
+            return null;
+        }).when(transactionMapper).updateEntity(request, existingTransaction);
+
+        when(transactionRepository.save(existingTransaction))
+                .thenReturn(existingTransaction);
+
+        when(transactionMapper.toResponse(existingTransaction))
+                .thenReturn(expectedResponse);
+
+//        Act
+        TransactionResponse result =
+                transactionService.updateTransaction(transactionId, request);
+//        Assert
+        assertEquals(expectedResponse, result);
+        assertEquals("Updated title", existingTransaction.getTitle());
+        assertEquals(0, new BigDecimal("25.50")
+                .compareTo(existingTransaction.getAmount()));
+        assertEquals(LocalDate.of(2026, 10, 15),
+                existingTransaction.getTransactionDate());
+
+//        Owner must remain unchanged.
+        assertEquals(userA, existingTransaction.getOwner());
+
+        verify(transactionRepository).save(existingTransaction);
+    }
+
+    @Test
+    void shouldDeleteOwnTransaction(){
+//        Arrange
+        Long transactionId  = 100L;
+        TransactionEntity transaction = new TransactionEntity();
+        transaction.setTransactionId(transactionId);
+        transaction.setOwner(userA);
+
+        when(transactionRepository.findByTransactionIdAndOwner(transactionId, userA))
+                .thenReturn(Optional.of(transaction));
+
+//        Act + Assert
+        transactionService.deleteTransaction(transactionId);
+
+        verify(transactionRepository)
+                .findByTransactionIdAndOwner(transactionId, userA);
+        verify(transactionRepository).delete(transaction);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenTransactionDoesNotExist(){
+//        Arrange
+        Long transactionId  = 999L;
+
+        when(transactionRepository.findByTransactionIdAndOwner(transactionId, userA))
+                .thenReturn(Optional.empty());
+
+//        Act + Assert
+        assertThrows(
+                ResourceNotFoundException.class,
+                () -> transactionService.getTransactionById(transactionId)
+        );
+
+        verify(transactionRepository).findByTransactionIdAndOwner(transactionId, userA);
+        verify(transactionMapper, never()).toResponse(any());
+    }
 
 
 }

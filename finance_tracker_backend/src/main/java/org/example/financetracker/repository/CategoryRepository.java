@@ -28,4 +28,15 @@ public interface CategoryRepository
             String name
     );
 
+    boolean existsByOwnerAndNameIgnoreCase(
+            UserEntity owner,
+            String name
+    );
+
+    boolean existsByOwnerAndNameIgnoreCaseAndCategoryIdNot(
+            UserEntity owner,
+            String name,
+            Long categoryId
+    );
+
 }

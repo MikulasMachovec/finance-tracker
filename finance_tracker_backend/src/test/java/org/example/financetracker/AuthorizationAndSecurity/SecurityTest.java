@@ -4,6 +4,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.example.financetracker.service.interfaces.ExportDataService;
 import org.example.financetracker.service.interfaces.TransactionService;
+import org.example.financetracker.util.TestJwtUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,8 +33,6 @@ class SecurityTest {
 
     @MockitoBean
     private ExportDataService exportDataService;
-
-
 
     @Value("${jwt.secret}")
     private String jwtSecret;
@@ -85,13 +84,8 @@ class SecurityTest {
                 Base64.getDecoder().decode(jwtSecret)
         );
 
-        String validToken = Jwts.builder()
-                .subject("test@test.com")
-                .claim("userId", 1L)
-                .issuedAt(new Date(now - 60_000))
-                .expiration(new Date(now + 300_000))
-                .signWith(signingKey)
-                .compact();
+        String validToken = TestJwtUtil.createToken(jwtSecret, 1L, "valid@token.com");
+
 //        Act: send valid token
         mockMvc.perform(get("/transactions")
                         .header("Authorization","Bearer " +  validToken))

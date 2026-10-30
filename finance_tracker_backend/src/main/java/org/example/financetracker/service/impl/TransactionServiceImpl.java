@@ -48,6 +48,17 @@ public class TransactionServiceImpl implements TransactionService {
                 new ResourceNotFoundException("Transaction"));
     }
 
+    private CategoryEntity getValidExpenseCategory(Long categoryId, UserEntity owner) {
+        CategoryEntity category = getCategory(categoryId, owner);
+
+        if ("uncategorized".equalsIgnoreCase(category.getName())) {
+            throw new IllegalArgumentException(
+                    "Uncategorized category cannot be assigned to transactions."
+            );
+        }
+        return category;
+    }
+
     @Override
     public List<TransactionResponse> getAllTransactions() {
         UserEntity owner = authenticationService.getCurrentUser();
@@ -85,13 +96,10 @@ public class TransactionServiceImpl implements TransactionService {
                 );
             }
 
-            CategoryEntity category = getCategory(transactionRequest.getCategoryId(), owner);
-
-            if ("Uncategorized".equalsIgnoreCase(category.getName())) {
-                throw new IllegalArgumentException(
-                        "Uncategorized category cannot be assigned to transactions."
-                );
-            }
+            CategoryEntity category = getValidExpenseCategory(
+                    transactionRequest.getCategoryId(),
+                    owner
+            );
 
             transaction.setCategory(category);
 
@@ -121,14 +129,10 @@ public class TransactionServiceImpl implements TransactionService {
                 );
             }
 
-            CategoryEntity category =
-                    getCategory(transactionRequest.getCategoryId(), owner);
-
-            if ("Uncategorized".equalsIgnoreCase(category.getName())) {
-                throw new IllegalArgumentException(
-                        "Uncategorized category cannot be assigned to transactions."
-                );
-            }
+            CategoryEntity category = getValidExpenseCategory(
+                    transactionRequest.getCategoryId(),
+                    owner
+            );
 
             transaction.setCategory(category);
 

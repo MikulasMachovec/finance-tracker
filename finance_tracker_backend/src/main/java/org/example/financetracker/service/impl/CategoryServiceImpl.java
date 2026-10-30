@@ -101,6 +101,54 @@ public class CategoryServiceImpl implements CategoryService {
         return response;
     }
 
+//    Validate Category name when creating category
+    private void validateCreateCategoryName(String name, UserEntity owner) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException(
+                    "Category name is required."
+            );
+        }
+
+        if ("uncategorized".equalsIgnoreCase(name.trim())) {
+            throw new IllegalArgumentException(
+                    "The Uncategorized category name is reserved."
+            );
+        }
+
+        if (categoryRepository.existsByOwnerAndNameIgnoreCase(owner, name.trim())) {
+            throw new IllegalArgumentException(
+                    "Category name already exists."
+            );
+        }
+    }
+
+//    Validate name when updating category
+    private void validateUpdateCategoryName(
+            String name,
+            UserEntity owner,
+            Long categoryId
+    ) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException(
+                    "Category name is required."
+            );
+        }
+
+        if ("uncategorized".equalsIgnoreCase(name.trim())) {
+            throw new IllegalArgumentException(
+                    "The Uncategorized category name is reserved."
+            );
+        }
+
+        if (categoryRepository.existsByOwnerAndNameIgnoreCaseAndCategoryIdNot(
+                owner, name.trim(), categoryId
+        )) {
+            throw new IllegalArgumentException(
+                    "Category name already exists."
+            );
+        }
+    }
+
     @Override
     public List<CategoryResponse> getAllCategories() {
 
@@ -126,17 +174,10 @@ public class CategoryServiceImpl implements CategoryService {
 
         UserEntity owner = authenticationService.getCurrentUser();
 
-        if (request.getName() == null ||
-                request.getName().isEmpty()) {
-            throw new IllegalArgumentException("Category name is required.");
-        }
+        validateCreateCategoryName(request.getName(), owner);
 
-        if ("uncategorized".equalsIgnoreCase(request.getName().trim())) {
-            throw new IllegalArgumentException(
-                    "The Uncategorized category name is reserved."
-            );
-        }
-        
+        request.setName(request.getName().trim());
+
         CategoryEntity category = categoryMapper.toEntity(request);
         category.setOwner(owner);
 
@@ -147,7 +188,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryResponse updateCategory(Long categoryId, CategoryRequest request) {
         UserEntity owner = authenticationService.getCurrentUser();
+
         CategoryEntity category = getCategory(categoryId, owner);
+
+        validateUpdateCategoryName(request.getName(), owner, categoryId);
+
+        request.setName(request.getName().trim());
 
         categoryMapper.updateEntity(request, category);
         CategoryEntity savedCategory = categoryRepository.save(category);
